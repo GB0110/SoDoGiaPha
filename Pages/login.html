@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="../CSS/login.css">
+    <script type="module" src="../JavaScript/store.js" defer></script>
+</head>
+<body>
+    <header>
+        <h2 class="title">Gia phả</h2>
+        <nav class="navigation">
+            <button class="btnLogin-popup">Đăng nhập</button>
+        </nav>
+    </header> 
+
+    <div class="wrapper">
+        <span class="icon-close"><ion-icon name="close"></ion-icon>
+        </span>
+
+        <div class="form-box login">
+            <h2>Đăng nhập</h2>
+            <form action="#"> <!--form-->
+                <div class="input-box"> <!--cho nhap email-->
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span><!--icon email-->
+                    <input type="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box"><!--cho nhap mk-->
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span><!--icon mk-->
+                    <input type="password" required>
+                    <label>Mật khẩu</label>
+                </div>
+                <div class="remember-forgot"><!--checkbox remember me-->
+                    <label><input type="checkbox">Nhớ tài khoản</label>
+                    <a class="forgot-pass" href="#">Quên mật khẩu?</a><!--chuyen page quen mk-->
+                </div>
+                <button type="submit" class="btn">Đăng nhập</button><!--button dang nhap-->
+                <div class="login-register">
+                    <p>Không có tài khoản?<a href="#" class="register-link">Đăng kí</a></p><!--chuyen dang ki-->
+                </div>
+            </form>
+        </div>
+
+        <div class="form-box register">
+            <h2>Đăng kí</h2>
+            <form action="#"> <!--form-->
+                <div class="input-box"> <!--cho nhap username-->
+                    <span class="icon"><ion-icon name="person"></ion-icon></span><!--icon username-->
+                    <input type="text" required id="rhoten">
+                    <label>Họ và tên</label>
+                </div>
+                <div class="input-box"> <!--cho nhap email-->
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span><!--icon email-->
+                    <input type="email" required id="remail">
+                    <label>Email</label>
+                </div>
+                <div class="input-box"><!--cho nhap mk-->
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span><!--icon mk-->
+                    <input type="password" required id="rpassword">
+                    <label>Mật khẩu</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox">Tôi đồng ý với các điều khoản</label>
+                </div>
+                <button type="submit" class="btn" id="btnRegister">Đăng kí</button><!--button dang kí-->
+                <div class="login-register">
+                    <p>Đã có tài khoản?<a href="#" class="login-link">Đăng nhập</a></p><!--chuyen dang nhap-->
+                </div>
+            </form>
+        </div>
+
+        <div class="form-box forgot-password">
+            <h2>Quên mật khẩu</h2>
+            <form action="#"> <!--form-->
+                <div class="input-box"> <!--cho nhap email-->
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span><!--icon email-->
+                    <input type="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box"><!--cho nhap mk-->
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span><!--icon mk-->
+                    <input type="password" required>
+                    <label>Mật khẩu mới</label>
+                </div>
+                <button type="submit" class="btn">Xác nhận</button><!--button dang kí-->
+                <div class="back">
+                    <span class="icon"><ion-icon name="arrow-back"></ion-icon></span>
+                    <a href="#" class="back-login">Quay lại</a><!--chuyen dang nhap-->
+                </div>
+            </form>
+        </div>
+    </div> 
+
+<script src="../JavaScript/login-register.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
