@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gia Phả</title>
+    <link rel="stylesheet" href="../CSS/login.css">
+    <script type="module" src="..//JS/store.js"></script>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="form-box active" id="login-form">
+            <form onsubmit="loginUser(event)" action="">
+                <h2>Đăng nhập</h2>
+                <input type="email" name="log-email" placeholder="Email" required>
+                <input type="password" name="log-password" placeholder="Mật khẩu" required>
+                <button type="submit" name="btn-login">Đăng nhập</button>
+                <div class="forgot-pass">
+                    <p>Không có tài khoản? <a href="#" onclick="showForm('register-form')">Đăng kí</a></p>
+                    <a href="#" onclick="showForm('forgot-pass-form')">Quên mật khẩu?</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-box" id="forgot-pass-form">
+            <form action="">
+                <h2>Quên mật khẩu</h2>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Mat khau" required>
+                <button type="submit" name="xacnhan">Xác nhận</button>
+                <a href="#" onclick="showForm('login-form')">&#8592Quay lại</a>
+            </form>
+        </div>
+
+        <div class="form-box" id="register-form">
+            <form onsubmit="registerUser(event)" action="">
+                <h2>Đăng kí</h2>
+                <input type="text" name="reg-name" placeholder="Username" required>
+                <input type="email" name="reg-email" placeholder="Email" required>
+                <input type="password" name="reg-password" placeholder="Mat khau" required>
+                <select name="role" required>
+                    <option value="">--Chọn vai trò--</option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                    <option value="editor">Editor</option>
+                </select>
+                <button type="submit" name="btn-register">Đăng kí</button>
+                <p>Đã có tài khoản? <a href="#" onclick="showForm('login-form')">Đăng nhập</a></p>
+            </form>
+        </div>
+    </div>
+
+
+<script src="../JS/login.js"></script>
+</body>
+</html>
