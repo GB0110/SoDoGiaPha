@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/mb_totien.css">
+    <link rel="stylesheet" href="../CSS/totien.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" >
     <title>Tổ tiên</title>
 </head>
@@ -73,12 +73,48 @@
               </div>
             </div>
             <div class="content">
-              <div class="card">
-                
+                <div class="header">
+                  <button id="openForm"><i class="fa-solid fa-user-plus"></i>Thêm mới</button>
+                  <div id="search" class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm">
+                    <button id="searchBtn"><i class="fas fa-search"></i></button>
+                    <div class="filter-bar">
+                      <select id="filterGender">
+                        <option value="">Tất cả giới tính</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                      </select>
+                      <button id="applyFilter"><i class="fas fa-filter"></i> Lọc</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="ancestor-list" id="ancestorList"></div>
+                </div>
+                <div id="popupForm" class="popup">
+                  <div class="popup-content">              
+                      <h3>Thông tin cá nhân</h3>
+                      <div class="choice-avt">
+                        <img id="preview" src="https://via.placeholder.com/100" />
+                        <input type="file" id="imgInput">
+                      </div>
+                      <div class="info-ancestor">
+                        <input type="text" id="name" placeholder="Họ và tên">
+                        <select id="gender">
+                          <option value="">-- Chọn giới tính --</option>
+                          <option value="Nam">Nam</option>
+                          <option value="Nữ">Nữ</option>
+                        </select>
+                        <input type="date" id="birth">
+                        <input type="text" id="desc" placeholder="Mô tả">
+                      </div>
+                      <div class="buttons">
+                        <button id="cancel">Hủy</button>
+                        <button id="create"><i class="fa-solid fa-user-plus"></i>Tạo mới</button>
+                      </div>
+                    </div>
               </div>
-            </div>
         </div>
-        </div>
-         <script src="../JavaScript/script.js"></script>
+    </div>
+     <script src="../JavaScript/totien.js"></script>
 </body>
 </html>

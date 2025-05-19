@@ -8,25 +8,26 @@ const btnOpen = document.getElementById('btn-open');
     sidebar.classList.toggle('collapsed');
     mainContent.classList.toggle('expanded');
     btnOpen.classList.toggle('rotated'); 
-
-    //  // Đổi icon khi mở sidebar
-    // if (sidebar.classList.contains('collapsed')) {
-    //   btnIcon.classList.remove('fa-bars');
-    //   btnIcon.classList.add('fa-xmark');
-    // } else {
-    //   btnIcon.classList.remove('fa-xmark');
-    //   btnIcon.classList.add('fa-bars');
-    // }
   });
 
+<<<<<<< HEAD:JavaScript/script.js
 /*  document.getElementById("create-button").addEventListener("click", function () {
     alert("Bài viết đã được tạo thành công!");
 });*/
 
+=======
+// SCRIPT CỦA TRANG BÀI VIẾT
+// Tạo bài viết
+  document.getElementById("create-button").addEventListener("click", function () {
+    alert("Bài viết đã được tạo thành công!");
+});
+// Huỷ tạo bài viết
+>>>>>>> 3e01b89 (Trang to tien):JavaScript/baiviet.js
 document.getElementById("cancel-button").addEventListener("click", function () {
     document.getElementById("post-title").value = "";
     document.getElementById("post-content").value = "";
     document.getElementById("image-upload").value = "";
+<<<<<<< HEAD:JavaScript/script.js
 });
 
 //Chon Pha do
@@ -40,3 +41,6 @@ document.querySelectorAll(".menu-btn span").forEach(btn => {
 
 
   
+=======
+});
+>>>>>>> 3e01b89 (Trang to tien):JavaScript/baiviet.js

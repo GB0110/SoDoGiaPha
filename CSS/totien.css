@@ -116,7 +116,6 @@ background-color: rgba(255, 255, 255, 0.15);
 color: #ffffff; 
 }
 /* main content */
-
 .main-content .header-menu{
 display: flex;
 justify-content: space-between;
@@ -156,7 +155,7 @@ border:none;
 background: none;
 font-size: 18px;
 }
-
+/* Content */
 .content{
 padding: 20px;
 background-image: url('../Pictures/nengiaphavang.jpg');
@@ -165,32 +164,171 @@ height: 100%;
 background-repeat: no-repeat;
 background-size: cover;
 }
+.container {
+   display: flex;
+ }
+ .header{
+   display: flex;
+   justify-content: space-between;
+ }
+/* Nút thêm mới tổ tiên */
+#openForm{
+   background-color: #994D1C;
+   color: #d3cfcf;
+   padding: 10px 15px;
+   border: none;
+   border-radius: 10px;
+}
+/* Ô nhập tìm kiếm */
+#searchInput {
+  padding: 6px 10px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 160px;
+}
 
+/* Nút tìm kiếm (icon kính lúp) */
+#searchBtn {
+  padding: 6px 10px;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-.content {
-   flex-grow: 1;
+#searchBtn i {
+  color: #333;
+}
+
+/* Vùng chọn lọc giới tính và nút lọc */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Select lọc giới tính */
+#filterGender {
+  padding: 6px;
+  font-size: 14px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+/* Nút Lọc */
+#applyFilter {
+  padding: 6px 12px;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#applyFilter i {
+  color: #333;
+}
+
+ .ancestor-list {
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+   gap: 20px;
+   padding: 30px;
+ }
+ .ancestor-card {
+   width: 160px;
+   background: white;
+   padding: 12px;
+   border-radius: 10px;
+   text-align: center;
+   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+ }
+
+ .ancestor-card img {
+   width: 100%;
+   height: 100px;
+   object-fit: cover;
+   border-radius: 6px;
+ }
+.choice-avt{
+  margin-bottom: 10px;
+}
+ .popup {
+   position: fixed;
+   top: 0; left: 0;
+   width: 100%; height: 100%;
+   background-color: rgba(0,0,0,0.5);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   display: none;
+ }
+ .popup select {
+  padding: 8px;
+  margin-bottom: 10px;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+ .popup-content {
+   background: white;
    padding: 20px;
-   background-color: #f9f9f9; /* Màu nền nhẹ */
-   border-left: 2px solid #ccc; /* Viền ngăn cách với sidebar */
+   border-radius: 10px;
+   width: 400px;
+ }
+
+ .popup-content input[type="text"],
+ .popup-content input[type="date"] {
+   width: 100%;
+   margin-bottom: 10px;
+   padding: 8px;
+   border-radius: 6px;
+   border: 1px solid #ccc;
+ }
+
+ .popup-content .buttons {
+   display: flex;
+   justify-content: flex-end;
+   gap: 10px;
+ }
+
+ .popup-content img {
+   width: 80px;
+   height: 80px;
+   border-radius: 50%;
+   object-fit: cover;
+   display: block;
+   margin: auto;
+ }
+#create{
+  background-color: #287F71;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10x;
+}
+#cancel{
+  background-color: #4A5A6B;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
 }
 /* responsive tablet */
 @media (max-width: 991px) {
 #btn-open{
-   position:relative;
-   z-index: 1200;
-   transform: translateX(0);
-   transition: transform 0.3s ease;
-}
-#btn-close{
-   position:fixed;
-   z-index: 1000;
-   transform: translateX(0);
+   position: fixed;
+   z-index: 1100;
 }
 
 .sidebar {
  transform: translateX(-100%);
  background-color: #994D1C;
- z-index: 1100; 
+ z-index: 1000; 
  transition: transform 0.3s ease;
 }
 
@@ -200,12 +338,12 @@ background-size: cover;
 
 /* Main content không cần margin khi sidebar tràn lên */
 .main-content {
- margin-left: 0;
-}
-.main-content.expanded{
-   transform: translateX(220px);
-   transition: transform 0.3s ease;
-}
+  margin-left: 0;
+  transition: transform 0.3s ease;
+ }
+ .main-content.expanded{
+    transform: translateX(200px);
+ }
 /* chỉnh avatar sang phải do position: fixed;  */
 .header-menu .menu-avatar {
    margin-left: auto; 
