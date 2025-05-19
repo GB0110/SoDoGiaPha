@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-analytics.js";
-  import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
-  import {getFirestore, setDoc, doc} from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-analytics.js";
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
+import {getFirestore, setDoc, getDoc, doc} from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
@@ -32,7 +32,7 @@ window.registerUser = async function (e) {
   const email = document.querySelector("[name='reg-email']").value;
   const password = document.querySelector("[name='reg-password']").value;
   const role = document.querySelector("[name='role']").value;
- console.log("Đang đăng ký:", name, email, role);
+console.log("Đang đăng ký:", name, email, role);
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
@@ -53,38 +53,44 @@ console.log("Ghi dữ liệu vào Firestore thành công!");
 };
 
 
-  /*const signUp = document.getElementById("btnRegister");
-  signUp.addEventListener('click', (event)=>{
-    event.preventDefault();
-    const email = document.getElementById('remail').value;
-    const password = document.getElementById('rpassword').value;
-    const username = document.getElementById('rhoten').value;
-    
-    const auth = getAuth();
-    const db = getFirestore();
 
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential)=>{
-        const user = userCredential.user;
-        const userData = {
-            email: email,
-            username: username
-        };
+window.loginUser = async function (e) {
+  e.preventDefault();
 
-        const docRef = doc (db, "users", user.uid);
-        setDoc(docRef, userData)
-        .then(()=>{
-            window.location.href='web.html';
-        })
-        .catch((error)=>{
-            console.error("error writing doc", error);
+  const email = document.querySelector("[name='log-email']").value;
+  const password = document.querySelector("[name='log-password']").value;
 
-        })
-    })
-    /*.catch((error)=>{
-        const errorCode = error.code;
-        if(errorCode == 'auth/email-already-in-use'){
-            
-        }
-    })
-  })*/
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    const uid = user.uid;
+
+    console.log("Đăng nhập thành công! UID:", uid);
+
+    // 🔥 Lấy thông tin người dùng từ Firestore
+    const docRef = doc(db, "users", uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const userData = docSnap.data();
+      const role = userData.role;
+
+      console.log("Vai trò:", role);
+
+      // 👉 Redirect hoặc xử lý theo vai trò
+      if (role === "admin") {
+        window.location.href = "web.html";
+      } else if (role === "editor") {
+        window.location.href = "db_editor.html";
+      } else {
+        window.location.href = "md_totien.html";
+      }
+    } else {
+      alert("Không tìm thấy thông tin người dùng trong Firestore.");
+    }
+
+  } catch (error) {
+    console.error("Lỗi đăng nhập:", error);
+    alert("Email hoặc mật khẩu không đúng.");
+  }
+};
