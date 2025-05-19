@@ -19,14 +19,23 @@ const btnOpen = document.getElementById('btn-open');
     // }
   });
 
-  document.getElementById("create-button").addEventListener("click", function () {
+/*  document.getElementById("create-button").addEventListener("click", function () {
     alert("Bài viết đã được tạo thành công!");
-});
+});*/
 
 document.getElementById("cancel-button").addEventListener("click", function () {
     document.getElementById("post-title").value = "";
     document.getElementById("post-content").value = "";
     document.getElementById("image-upload").value = "";
+});
+
+//Chon Pha do
+document.querySelectorAll(".menu-btn span").forEach(btn => {
+  if (btn.innerText === "Phả đồ") {
+    btn.parentElement.addEventListener("click", () => {
+      window.location.href = "../Pages/editor_pha_do.html";
+    });
+  }
 });
 
 

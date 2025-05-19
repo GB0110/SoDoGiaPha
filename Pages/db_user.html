@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/d3@6"></script>
+    <script type="module" src="https://unpkg.com/family-chart@0.0.0"></script>
+    <link rel="stylesheet" href="../CSS/family-chart.css">
     <link rel="stylesheet" href="../CSS/db_editor.css">
+    <link rel="stylesheet" href="../CSS/db_user.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" >
-    <title>Dashboard Editor</title>
+    <title>Dashboard User</title>
 </head>
 <body>
 <div class="wrapper">
@@ -25,7 +28,7 @@
     <li>
       <div class="menu-title">Phả hệ</div>
       <ul>
-        <li class="menu-btn" onclick="location.href='../Pages/editor_pha_do.html'"><i class="fas fa-sitemap"></i> <span>Phả đồ</span></li>
+        <li class="menu-btn"><i class="fas fa-sitemap"></i> <span>Phả đồ</span></li>
         <li class="menu-btn"><i class="fas fa-users"></i> <span>Danh sách thành viên</span></li>
       </ul>
     </li>
@@ -73,39 +76,31 @@
           </div>
         </div>
         <div class="content">
-          <section class="summary-cards">
-            <div class="card">
-              <div class="count">10</div>
-              <i class="fa-solid fa-users"></i>
-              <div class="label">Thành viên</div>
-              <button>Xem thêm</button>
-            </div>
-            <div class="card">
-              <div class="count">10</div>
-              <i class="fa-solid fa-calendar-days"></i>
-              <div class="label">Sự kiện</div>
+            <h2 id="formTitle" style="text-align:center;">Thêm thành viên mới</h2>
+            <form id="addMemberForm">
+                <input name="firstName" placeholder="Tên" required>
+                <input name="lastName" placeholder="Họ" required>
+                <select name="gender" required>
+                    <option value="M">Nam</option>
+                    <option value="F">Nữ</option>
+                </select>
+                <input name="father" placeholder="ID cha">
+                <input name="mother" placeholder="ID mẹ">
+                <input name="avatar" placeholder="Ảnh đại diện (URL)">
+                <button type="submit">Thêm</button>
+            </form>
 
-              <button>Xem thêm</button>
-            </div>
-            <div class="card">
-              <div class="count">10</div>
-              <i class="fa-solid fa-book"></i>
-              <div class="label">Bài viết</div>
-              <button>Xem thêm</button>
-            </div>
-          </section>
-          <section class="event-list">
-              <h3>Sự kiện sắp diễn ra</h2>
-              <ul>
-                <li>Sự kiện 1</li>
-                <li>Sự kiện 1</li>
-                <li>Sự kiện 1</li>
-                <li>Sự kiện 1</li>
-              </ul>
-            </section>
+            <hr />
+
+            <div id="FamilyChart" class="f3" style="width:90%;height:100%;margin:auto;background-color:#222;color:white;"></div>
         </div>
     </div>
     </div>
-    <script src="../JavaScript/script.js"></script>
+
+
+    <!-- Firebase logic -->
+  <script type="module" src="../JavaScript/an_them_tv_user.js"></script>
+  <script type="module" src="../JavaScript/them_thanh_vien.js"></script>
+  <script type="module" src="../JavaScript/render_chart.js"></script>
 </body>
 </html>

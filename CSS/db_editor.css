@@ -165,6 +165,8 @@ transform: rotate(90deg);
 } */
 
 .content{
+display: flex;
+flex-direction: column;
 padding: 20px;
 background-image: url('../Pictures/nengiaphavang.jpg');
 width: 100%;

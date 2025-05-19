@@ -83,7 +83,7 @@ window.loginUser = async function (e) {
       } else if (role === "editor") {
         window.location.href = "db_editor.html";
       } else {
-        window.location.href = "md_totien.html";
+        window.location.href = "db_user.html";
       }
     } else {
       alert("Không tìm thấy thông tin người dùng trong Firestore.");
