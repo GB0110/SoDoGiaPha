@@ -61,7 +61,26 @@ function renderChart(data) {
     card_dim: { w: 220, h: 70, text_x: 75, text_y: 15, img_w: 60, img_h: 60, img_x: 5, img_y: 5 },
     card_display: [d => `${d.data["first name"]} ${d.data["last name"]}`],
     mini_tree: false,
-    link_break: false
+    link_break: false,
+
+    onClick: async (d) => {
+    const result = await Swal.fire({
+      title: 'Thông tin thành viên',
+      html: `<b>${d.data["first name"]} ${d.data["last name"]}</b><br>ID: ${d.id}`,
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Sửa',
+      denyButtonText: 'Xoá'
+    });
+
+    if (result.isConfirmed) {
+      // TODO: mở form sửa (nếu cần)
+      Swal.fire('Chưa xử lý sửa', '', 'info');
+    } else if (result.isDenied) {
+      await deleteDoc(doc(db, "members", d.id));
+      Swal.fire('Đã xoá', '', 'success');
+      fetchFamilyData(); // cập nhật lại biểu đồ
+    }}
   });
 
   store.setOnUpdate(props => f3.view(store.getTree(), svg, Card, props || {}));
@@ -71,7 +90,6 @@ function renderChart(data) {
 }
 
 fetchFamilyData();
-console.log("📦 Dữ liệu render:", JSON.stringify(data, null, 2));
 
 export { fetchFamilyData }; // BẮT BUỘC PHẢI CÓ
 

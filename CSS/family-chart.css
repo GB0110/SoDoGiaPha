@@ -9,10 +9,10 @@
   fill: currentColor;
 }
 .f3 rect.card-female, .f3 .card-female .card-body-rect, .f3 .card-female .text-overflow-mask {
-  fill: rgb(196, 138, 146);
+  fill: #B4986E;
 }
 .f3 rect.card-male, .f3 .card-male .card-body-rect, .f3 .card-male .text-overflow-mask {
-  fill: rgb(120, 159, 172);
+  fill: #543A14;
 }
 .f3 .card-genderless .card-body-rect, .f3 .card-genderless .text-overflow-mask {
   fill: lightgray;
