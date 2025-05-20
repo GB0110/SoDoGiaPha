@@ -11,7 +11,7 @@
     <div class="wrapper">
         <!-- side bar -->
         <div class="sidebar">
-            <div class="logo">
+            <div class="logo" onclick="location.href='../Pages/db_editor.html'">
               <img src="../Pictures/images.png" alt="Logo" />
             </div>
             <div class="divider">
@@ -25,7 +25,7 @@
         <li>
           <div class="menu-title">Phả hệ</div>
           <ul>
-            <li class="menu-btn"><i class="fas fa-sitemap"></i> <span>Phả đồ</span></li>
+            <li class="menu-btn" onclick="location.href='../Pages/db_editor.html'"><i class="fas fa-sitemap" ></i> <span>Phả đồ</span></li>
             <li class="menu-btn"><i class="fas fa-users"></i> <span>Danh sách thành viên</span></li>
           </ul>
         </li>
@@ -131,6 +131,9 @@
               </div>
         </div>
     </div>
-     <script src="../JavaScript/totien.js"></script>
+    <script type="module" src="../JavaScript/firebase-config.js"></script>
+    <script type="module" src="../JavaScript/totien.js"></script>
+    <!-- <script type="module" src="../JavaScript/an_them_tv_user.js"></script> -->
+     <script src="../JavaScript/sidebar.js"></script>
 </body>
 </html>

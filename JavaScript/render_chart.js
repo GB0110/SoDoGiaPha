@@ -12,7 +12,7 @@ async function fetchFamilyData() {
   snapshot.forEach(docSnap => {
     const item = docSnap.data();
     console.log("📦 Dữ liệu render:", data); // ✅ in ở đây mới đúng
-
+     const rels = item.rels || {};
     // ✅ Cảnh báo nếu thiếu "rels"
   if (!item.rels) {
     console.warn("⚠️ Document thiếu rels:", docSnap.id);
