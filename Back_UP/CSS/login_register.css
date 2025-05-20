@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('../Picture/hinh_nen_login.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.container{
+    margin: 0px 15px;
+}
+
+.form-box{
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    background: #ffffffb5;
+    border-radius: 20px;
+    display:none;
+}
+
+.form-box.active{
+    display: block;
+}
+
+h2{
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input, select{
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid black;
+    outline: none;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+button{
+    width: 100%;
+    padding: 12px;
+    background: black;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+    margin-bottom: 20px;
+    transition: 0.5s;
+}
+
+button:hover{
+    background: #333;
+}
+
+.forgot-pass{
+    display: flex;
+    justify-content: space-between;
+}
+
+p, a{
+    font-size: 14.5px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+a, p a{
+    color: #333;
+    text-decoration: none;
+}
+
+a:hover, p a:hover{
+    text-decoration: underline;
+}
