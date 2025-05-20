@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/admin_quantri.css">
+    <link rel="stylesheet" href="../css/admin_dstv.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" >
-    <title>Quản trị viên</title>
+    <title>Danh sách thành viên</title>
 </head>
 <body>
   
@@ -29,8 +29,7 @@
       <div class="menu-title">Phả hệ</div>
       <ul>
         <li class="menu-btn"><i class="fas fa-sitemap"></i> <span>Phả đồ</span></li>
-       
-        <li class="menu-btn" data-page="admin_dstv.html"><a href="admin_dstv.html"> <i class="fas fa-users"> </i> <span>Danh sách thành viên</span></a></li>
+        <li class="menu-btn" data-page="admin_dstv.html"><i class="fas fa-users"></i> <span>Danh sách thành viên</span></li>
       </ul>
     </li>
 
@@ -59,7 +58,7 @@
     <li>
       <div class="menu-title">Thông tin</div>
       <ul>
-        <li class="menu-btn" data-page="Admin_QuanTri.html"><i class="fas fa-user-shield"></i> <span>Quản trị viên</span></li>
+        <li class="menu-btn" > <a href="Admin_QuanTri.html"><i class="fas fa-user-shield"></i> <span>Quản trị viên</span></li></a>     
         <li class="menu-btn"><i class="fas fa-user-circle"></i> <span>Tài khoản</span></li>
       </ul>
     </li>
@@ -92,25 +91,17 @@
     <thead>
       <tr>
          <th>STT</th>
-        <th>Họ tên</th>
-        <th>Email</th>
-        <th>Vai trò</th>
-        <th>Trạng thái</th>
-        <th>Chỉnh sửa</th>
+      <th>Họ tên</th>
+      <th>Giới tính</th>
+      <th>Ngày sinh</th>
+      <th>Cha</th>
+      <th>Mẹ</th>
+      <th>Vợ/Chồng</th>
+      <th>Chỉnh sửa</th>
       </tr>
     </thead>
     <tbody  id="memberBody">
-      <!-- <tr>
-        <td>Trần Thị Mít</td>
-        <td>Cha A</td>
-        <td>Editor</td>
-        <td><span class="status offline">Offline</span></td>
-        <td>
-          <i class="fa fa-edit" onclick="showEditPopup(ID)"></i>
-          <i class="fa fa-trash" onclick="showDeletePopup(ID)"></i>
-        </td>
-      </tr>
-     -->
+    
     </tbody>
   </table>  
 
@@ -119,11 +110,11 @@
  <!-- popup thêm thành viên -->
 <div class="popup-overlay" id="popupAdd">
 <div class="popup-content">
-<h3 class="popup-title">Thông tin cá nhân</h3>
+<h3 class="popup-title">Thêm thành viên</h3>
 <div class="popup-body">
   <!-- Cột ảnh -->
   <div class="popup-left">
-    <img src="avatar-default.png" alt="avatar" class="avatar-preview" id="avatarPreview" />
+    <img src="avatar-default.png" class="avatar-preview" id="avatarPreview" />
     <input type="file" id="avatarInput" accept="image/*" onchange="previewAvatar(event)">
     
   </div>
@@ -133,11 +124,24 @@
     <label>Họ và tên</label>
     <input type="text" id="addName" placeholder="Nhập họ tên" />
 
-    <label>Email</label>
-    <input type="email" id="addEmail" placeholder="Nhập email" />
+        <label>Giới tính</label>
+        <select id="addGender">
+          <option value="Nam">Nam</option>
+          <option value="Nữ">Nữ</option>
+          <option value="Khác">Khác</option>
+        </select>
 
-    <label>Vai trò</label>
-    <input type="text" id="addRole" placeholder="admin" />
+        <label>Ngày sinh</label>
+        <input type="date" id="addBirth" />
+
+        <label>Cha</label>
+        <input type="text" id="addFather" />
+
+        <label>Mẹ</label>
+        <input type="text" id="addMother" />
+
+        <label>Vợ/Chồng</label>
+        <input type="text" id="addSpouse" />
 
     <!-- Nút -->
     <div class="popup-actions">
@@ -155,18 +159,30 @@
     <h3 class="popup-title">Chỉnh sửa thông tin</h3>
     <div class="popup-body">
       <div class="popup-left">
-        <img src="avatar-default.png" alt="avatar" class="avatar-preview" id="avatarPreview" />
+        <img src="avatar-default.png" class="avatar-preview" id="avatarPreview" />
     <input type="file" id="avatarInput" accept="image/*" onchange="previewAvatar(event)">
       </div>
       <div class="popup-right">
         <label>Họ và tên</label>
         <input type="text" id="editName" />
+        <label>Giới tính</label>
+        <select id="editGender">
+          <option value="Nam">Nam</option>
+          <option value="Nữ">Nữ</option>
+          <option value="Khác">Khác</option>
+        </select>
 
-        <label>Email</label>
-        <input type="email" id="editEmail" />
+        <label>Ngày sinh</label>
+        <input type="date" id="editBirth" />
 
-        <label>Vai trò</label>
-        <input type="text" id="editRole" />
+        <label>Cha</label>
+        <input type="text" id="editFather" />
+
+        <label>Mẹ</label>
+        <input type="text" id="editMother" />
+
+        <label>Vợ/Chồng</label>
+        <input type="text" id="editSpouse" />
 
         <div class="popup-actions">
           <button class="btn-cancel" onclick="closePopup('popupEdit')"><i class="fa fa-xmark"></i> Hủy</button>
@@ -194,6 +210,6 @@
 </div>
 
 </div>
-     <script src="../script/QuanTri.js"></script>
+     <script src="../script/admin_dstv.js"></script>
 </body>
 </html>

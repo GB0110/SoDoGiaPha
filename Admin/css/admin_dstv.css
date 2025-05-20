@@ -292,7 +292,7 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
 /* chiều rộng các cột nội dung của bảng quản trị viên */
 .member-table th:nth-child(1),  /* STT */
 .member-table td:nth-child(1) {
-  width: 50px;
+  width: 40px;
   text-align: center;
 }
 
@@ -301,23 +301,32 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
   width: 25%;
 }
 
-.member-table th:nth-child(3),  /* Email */
+.member-table th:nth-child(3),  /* giới tính */
 .member-table td:nth-child(3) {
-  width: 30%;
+  width: 15%;
 }
-
-.member-table th:nth-child(4),  /* Vai trò */
+.member-table th:nth-child(4),  /* ngày sinh */
 .member-table td:nth-child(4) {
   width: 15%;
 }
 
-.member-table th:nth-child(5),  /* Trạng thái */
+.member-table th:nth-child(5),  /* cha */
 .member-table td:nth-child(5) {
-  width: 15%;
+  width: 25%;
 }
 
-.member-table th:nth-child(6),  /* Chỉnh sửa */
+.member-table th:nth-child(6),  /* mẹ */
 .member-table td:nth-child(6) {
+  width: 25%;
+}
+
+.member-table th:nth-child(7),  /* vợ chồng */
+.member-table td:nth-child(7) {
+  width: 25%;
+}
+
+.member-table th:nth-child(8),  /* Chỉnh sửa */
+.member-table td:nth-child(8) {
   width: 15%;
   text-align: center;
 }
@@ -380,6 +389,7 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-right: -60px;
 }
 
 .popup-left img {
@@ -407,6 +417,13 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
   gap: 10px;
 }
 
+.popup-right select {
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
 .popup-right input {
   padding: 8px;
   border-radius: 6px;
