@@ -292,42 +292,42 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
 /* chiều rộng các cột nội dung của bảng quản trị viên */
 .member-table th:nth-child(1),  /* STT */
 .member-table td:nth-child(1) {
-  width: 40px;
+  width: 1%;
   text-align: center;
 }
 
 .member-table th:nth-child(2),  /* Họ tên */
 .member-table td:nth-child(2) {
-  width: 25%;
+  width: 13%;
 }
 
 .member-table th:nth-child(3),  /* giới tính */
 .member-table td:nth-child(3) {
-  width: 15%;
+  width: 7%;
 }
 .member-table th:nth-child(4),  /* ngày sinh */
 .member-table td:nth-child(4) {
-  width: 15%;
+  width: 7%;
 }
 
 .member-table th:nth-child(5),  /* cha */
 .member-table td:nth-child(5) {
-  width: 25%;
+  width: 10%;
 }
 
 .member-table th:nth-child(6),  /* mẹ */
 .member-table td:nth-child(6) {
-  width: 25%;
+  width: 10%;
 }
 
 .member-table th:nth-child(7),  /* vợ chồng */
 .member-table td:nth-child(7) {
-  width: 25%;
+  width: 10%;
 }
 
 .member-table th:nth-child(8),  /* Chỉnh sửa */
 .member-table td:nth-child(8) {
-  width: 15%;
+  width: 13%;
   text-align: center;
 }
 /* popup */

@@ -123,7 +123,7 @@
 <div class="popup-body">
   <!-- Cột ảnh -->
   <div class="popup-left">
-    <img src="avatar-default.png" alt="avatar" class="avatar-preview" id="avatarPreview" />
+    <img src="avatar-default.png" class="avatar-preview" id="avatarPreview" />
     <input type="file" id="avatarInput" accept="image/*" onchange="previewAvatar(event)">
     
   </div>
@@ -155,7 +155,7 @@
     <h3 class="popup-title">Chỉnh sửa thông tin</h3>
     <div class="popup-body">
       <div class="popup-left">
-        <img src="avatar-default.png" alt="avatar" class="avatar-preview" id="avatarPreview" />
+        <img src="avatar-default.png" class="avatar-preview" id="avatarPreview" />
     <input type="file" id="avatarInput" accept="image/*" onchange="previewAvatar(event)">
       </div>
       <div class="popup-right">
@@ -166,7 +166,11 @@
         <input type="email" id="editEmail" />
 
         <label>Vai trò</label>
-        <input type="text" id="editRole" />
+        <select id="editRole">
+          <option value="Admin">Admin</option>
+          <option value="Editor">Editor</option>
+          <option value="User">User</option>
+        </select>
 
         <div class="popup-actions">
           <button class="btn-cancel" onclick="closePopup('popupEdit')"><i class="fa fa-xmark"></i> Hủy</button>
