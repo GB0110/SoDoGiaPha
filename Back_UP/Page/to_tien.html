@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tổ tiên</title>
+    <link rel="stylesheet" href="../CSS/to_tien.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" >
+</head>
+    <body>
+        <div class="wrapper">
+            <!-- side bar -->
+            <div class="sidebar">
+                <div class="logo">
+                    <img src="../Picture/logo.png" alt="Logo" />
+                </div>
+                <div class="divider">
+                    <span class="diamond left"></span>
+                    <span class="line"></span>
+                    <span class="diamond right"></span>
+                </div>
+
+                <div class="menu">
+                    <ul>
+                        <li>
+                            <div class="menu-title">Phả hệ</div>
+                            <ul>
+                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-sitemap"></i> <span>Phả đồ</span></li>
+                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-users"></i> <span>Danh sách thành viên</span></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <div class="menu-title">Tin tức</div>
+                            <ul>
+                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-newspaper"></i> <span>Bài viết</span></li>
+                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-calendar-alt"></i> <span>Sự kiện</span></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <div class="menu-title">Phả ký</div>
+                            <ul>
+                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-home"></i> <span>Nhà thờ tổ</span></li>
+                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-history"></i> <span>Lịch sử</span></li>
+                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-user-clock"></i> <span>Tổ tiên</span></li>
+                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-scroll"></i> <span>Truyền thống</span></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <div class="menu-title">Công đức</div>
+                        </li>
+
+                        <li>
+                            <div class="menu-title">Thông tin</div>
+                            <ul>
+                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-user-shield"></i> <span>Quản trị viên</span></li>
+                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-user-circle"></i> <span>Tài khoản</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- main -->
+            
+            <div class="main-content">
+                <div class="header-menu">
+                    <button id="btn-open"><i class="fa-solid fa-bars"></i></button> 
+                    <div class="menu-avatar">
+                        <button id="btn-avatar"><i class="fas fa-user-circle"></i></button> 
+                        <div>Tên người dùng</div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="header">
+                        <button id="openForm"><i class="fa-solid fa-user-plus"></i>Thêm mới</button>
+                        <div id="search" class="search-bar">
+                            <input type="text" id="searchInput" placeholder="Tìm kiếm">
+                            <button id="searchBtn"><i class="fas fa-search"></i></button>
+                            <div class="filter-bar">
+                                <select id="filterGender">
+                                    <option value="">Tất cả giới tính</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
+                                <button id="applyFilter"><i class="fas fa-filter"></i> Lọc</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ancestor-list" id="ancestorList"></div>
+                </div>
+                <div id="popupForm" class="popup">
+                    <div class="popup-content">              
+                        <h3>Thông tin cá nhân</h3>
+                        <div class="choice-avt">
+                            <img id="preview" src="https://via.placeholder.com/100" />
+                            <input type="file" id="imgInput">
+                        </div>
+                        <div class="info-ancestor">
+                            <input type="text" id="name" placeholder="Họ và tên">
+                            <select id="gender">
+                                <option value="">-- Chọn giới tính --</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                            </select>
+                            <input type="date" id="birth">
+                            <input type="text" id="desc" placeholder="Mô tả">
+                        </div>
+                        <div class="buttons">
+                            <button id="cancel">Hủy</button>
+                            <button id="create"><i class="fa-solid fa-user-plus"></i>Tạo mới</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="module" src="../Javascript/fconfig.js"></script>
+        <script type="module" src="../Javascript/To_tien/to_tien.js"></script>
+        <script src="../Javascript/sidebar_trong.js"></script>
+    </body>
+</html>

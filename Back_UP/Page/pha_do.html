@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phả đồ</title>
+    <link rel="stylesheet" href="../CSS/sidebar_trong.css">
+    <link rel="stylesheet" href="../CSS/pha_do.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" >
+    <script src="https://unpkg.com/d3@6"></script>
+    <script type="module" src="https://unpkg.com/family-chart@0.0.0"></script>
+    <script type="module" src="../Javascript/Pha_do/render.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <!-- side bar -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="../Picture/logo.png" alt="Logo" />
+        </div>
+        <div class="divider">
+            <span class="diamond left"></span>
+            <span class="line"></span>
+            <span class="diamond right"></span>
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li>
+                    <div class="menu-title">Phả hệ</div>
+                    <ul>
+                        <li class="menu-btn" onclick="location.href=''"><i class="fas fa-sitemap"></i> <span>Phả đồ</span></li>
+                        <li class="menu-btn" onclick="location.href=''"><i class="fas fa-users"></i> <span>Danh sách thành viên</span></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <div class="menu-title">Tin tức</div>
+                    <ul>
+                        <li class="menu-btn" onclick="location.href=''"><i class="fas fa-newspaper"></i> <span>Bài viết</span></li>
+                        <li class="menu-btn" onclick="location.href=''"><i class="fas fa-calendar-alt"></i> <span>Sự kiện</span></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <div class="menu-title">Phả ký</div>
+                    <ul>
+                        <li class="menu-btn" onclick="location.href=''"><i class="fas fa-home"></i> <span>Nhà thờ tổ</span></li>
+                        <li class="menu-btn" onclick="location.href=''"><i class="fas fa-history"></i> <span>Lịch sử</span></li>
+                        <li class="menu-btn" onclick="location.href=''"><i class="fas fa-user-clock"></i> <span>Tổ tiên</span></li>
+                        <li class="menu-btn" onclick="location.href=''"><i class="fas fa-scroll"></i> <span>Truyền thống</span></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <div class="menu-title">Công đức</div>
+                </li>
+
+                <li>
+                    <div class="menu-title">Thông tin</div>
+                    <ul>
+                        <li class="menu-btn" onclick="location.href=''"><i class="fas fa-user-shield"></i> <span>Quản trị viên</span></li>
+                        <li class="menu-btn" onclick="location.href=''"><i class="fas fa-user-circle"></i> <span>Tài khoản</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- main -->
+    
+    <div class="main-content">
+        <div class="header-menu">
+            <button id="btn-open"><i class="fa-solid fa-bars"></i></button> 
+            <div class="menu-avatar">
+                <button id="btn-avatar"><i class="fas fa-user-circle"></i></button> 
+                <div>Tên người dùng</div>
+            </div>
+        </div>
+        <div class="content">
+            <button id="addMemberBtn" class="fixed bottom-4 right-4 p-3 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 z-50" style="max-width: fit-content; background: transparent; border: none; cursor: pointer;">➕ Thêm thành viên
+            </button>
+            <button id="editMemberBtn" style="bottom: 4; background-color: transparent; color: black; border: none; border-radius: 8px; cursor: pointer; max-width: fit-content;">✏️ Sửa
+            </button>
+            <button id="deleteMemberBtn" style="bottom: 4; background-color: transparent; color: black; border: none; border-radius: 8px; cursor: pointer;max-width: fit-content;">🗑️ Xoá
+            </button>
+            <div id="search" class="search-bar">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            <div id="FamilyChart" class="f3" style="width:90%;height:100%;margin:auto;background-color: transparent;color:white;"></div>
+        </div>
+        
+    </div>
+</div>
+
+<script type="module" src="../Javascript/Pha_do/render.js"></script>
+<script type="module" src="../Javascript/Pha_do/them_sua_xoa_timkiem.js"></script>
+<script src="../Javascript/sidebar_trong.js"></script>
+</body>
+</html>
