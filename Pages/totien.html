@@ -11,7 +11,7 @@
     <div class="wrapper">
         <!-- side bar -->
         <div class="sidebar">
-            <div class="logo">
+            <div class="logo" onclick="location.href='../Pages/db_editor.html'">
               <img src="../Pictures/images.png" alt="Logo" />
             </div>
             <div class="divider">
@@ -25,7 +25,7 @@
         <li>
           <div class="menu-title">Phả hệ</div>
           <ul>
-            <li class="menu-btn"><i class="fas fa-sitemap"></i> <span>Phả đồ</span></li>
+            <li class="menu-btn" onclick="location.href='../Pages/db_editor.html'"><i class="fas fa-sitemap" ></i> <span>Phả đồ</span></li>
             <li class="menu-btn"><i class="fas fa-users"></i> <span>Danh sách thành viên</span></li>
           </ul>
         </li>
@@ -41,11 +41,27 @@
         <li>
           <div class="menu-title">Phả ký</div>
           <ul>
-            <li class="menu-btn"><i class="fas fa-home"></i> <span>Nhà thờ tổ</span></li>
-            <li class="menu-btn"><i class="fas fa-history"></i> <span>Lịch sử</span></li>
-            <li class="menu-btn"><i class="fas fa-user-clock"></i> <span>Tổ tiên</span></li>
-            <li class="menu-btn"><i class="fas fa-scroll"></i> <span>Truyền thống</span></li>
-          </ul>
+            <li class="menu-btn">
+                <a href="../Pages/nhathoto.html">
+                    <i class="fas fa-home"></i> <span>Nhà thờ tổ</span>
+                </a>
+            </li>
+            <li class="menu-btn">
+                <a href="../Pages/lichsu.html">
+                    <i class="fas fa-history"></i> <span>Lịch sử</span>
+                </a>
+            </li>
+            <li class="menu-btn">
+                <a href="../Pages/totien.html">
+                    <i class="fas fa-user-clock"></i> <span>Tổ tiên</span>
+                </a>
+            </li>
+            <li class="menu-btn">
+                <a href="../Pages/truyenthong.html">
+                    <i class="fas fa-scroll"></i> <span>Truyền thống</span>
+                </a>
+            </li>
+        </ul>
         </li>
     
         <li>
@@ -115,6 +131,9 @@
               </div>
         </div>
     </div>
-     <script src="../JavaScript/totien.js"></script>
+    <script type="module" src="../JavaScript/firebase-config.js"></script>
+    <script type="module" src="../JavaScript/totien.js"></script>
+    <!-- <script type="module" src="../JavaScript/an_them_tv_user.js"></script> -->
+     <script src="../JavaScript/sidebar.js"></script>
 </body>
 </html>

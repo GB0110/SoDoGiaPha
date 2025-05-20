@@ -20,10 +20,8 @@ onAuthStateChanged(auth, async (user) => {
 
       // Nếu là user → ẩn form và tiêu đề
       if (role === "user") {
-        const form = document.getElementById("addMemberForm");
-        const title = document.getElementById("formTitle");
+        const form = document.getElementById("addMemberBtn");
         if (form) form.style.display = "none";
-        if (title) title.style.display = "none";
       }
     }
   }

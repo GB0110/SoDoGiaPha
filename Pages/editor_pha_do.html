@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../CSS/db_editor.css">
     <link rel="stylesheet" href="../CSS/db_user.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" >
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <title>Pha Do</title>
 </head>
@@ -16,7 +15,7 @@
 <div class="wrapper">
     <!-- side bar -->
     <div class="sidebar">
-        <div class="logo">
+        <div class="logo" onclick="location.href='../Pages/db_editor.html'">
           <img src="../Pictures/images.png" alt="Logo" />
         </div>
         <div class="divider">
@@ -81,18 +80,23 @@
         <div class="content">
             <button id="addMemberBtn" class="fixed bottom-4 right-4 p-3 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 z-50" style="max-width: fit-content; background: transparent; border: none; cursor: pointer;">➕ Thêm thành viên
             </button>
+            <button id="editMemberBtn" style="bottom: 4; background-color: transparent; color: black; border: none; border-radius: 8px; cursor: pointer; max-width: fit-content;">✏️ Sửa
+            </button>
+            <button id="deleteMemberBtn" style="bottom: 4; background-color: transparent; color: black; border: none; border-radius: 8px; cursor: pointer;max-width: fit-content;">🗑️ Xoá
+            </button>
             <hr />
             <div id="FamilyChart" class="f3" style="width:90%;height:100%;margin:auto;background-color: transparent;color:white;"></div>
         </div>
     </div>
     </div>
 
-
+  <script type="module" src="../JavaScript//sidebar.js"></script>
     <!-- Firebase logic -->
   <script type="module" src="../JavaScript/them_thanh_vien_moi.js"></script>
   
   <script type="module" src="../JavaScript/an_them_tv_user.js"></script>
-  <script type="module" src="../JavaScript/them_thanh_vien.js"></script>
   <script type="module" src="../JavaScript/render_chart.js"></script>
+
+
 </body>
 </html>

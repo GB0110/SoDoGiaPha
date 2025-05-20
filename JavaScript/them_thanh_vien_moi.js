@@ -6,16 +6,20 @@ import {
   doc,
   getDoc,
   updateDoc,
-  getDocs
+  getDocs,
+  deleteDoc,
+  query,
+  where
 } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
 import { fetchFamilyData } from "../JavaScript/render_chart.js";
+import Swal from 'https://cdn.jsdelivr.net/npm/sweetalert2@11/+esm';
 
+// ================= Thêm thành viên =================
 document.getElementById("addMemberBtn").addEventListener("click", async () => {
   const members = await getDocs(collection(db, "members"));
-  const options = [];
-  members.forEach(docSnap => {
+  const options = members.docs.map(docSnap => {
     const data = docSnap.data();
-    options.push({ id: docSnap.id, name: `${data["first name"]} ${data["last name"]}` });
+    return { id: docSnap.id, name: `${data["first name"]} ${data["last name"]}` };
   });
 
   const selectRow = (label, name, options) => `
@@ -54,9 +58,7 @@ document.getElementById("addMemberBtn").addEventListener("click", async () => {
     confirmButtonText: 'Thêm',
     cancelButtonText: 'Hủy',
     focusConfirm: false,
-    customClass: {
-      popup: 'rounded-xl p-6'
-    },
+    customClass: { popup: 'rounded-xl p-6' },
     preConfirm: () => {
       return {
         firstName: document.getElementById("firstName").value.trim(),
@@ -76,9 +78,9 @@ document.getElementById("addMemberBtn").addEventListener("click", async () => {
   const newRef = await addDoc(collection(db, "members"), {
     "first name": formValues.firstName,
     "last name": formValues.lastName,
-    "birthday": formValues.birthday,
-    "avatar": formValues.avatar,
-    "gender": formValues.gender,
+    birthday: formValues.birthday,
+    avatar: formValues.avatar,
+    gender: formValues.gender,
     rels: {
       father: formValues.father,
       mother: formValues.mother,
@@ -88,46 +90,121 @@ document.getElementById("addMemberBtn").addEventListener("click", async () => {
   });
 
   const newId = newRef.id;
+  const updates = [];
 
-  // 🔁 Cập nhật cha
-  if (formValues.father) {
-    const fatherRef = doc(db, "members", formValues.father);
-    const fatherSnap = await getDoc(fatherRef);
-    if (fatherSnap.exists()) {
-      const fatherData = fatherSnap.data();
-      const children = Array.isArray(fatherData.rels?.children) ? fatherData.rels.children : [];
-      if (!children.includes(newId)) {
-        await updateDoc(fatherRef, { "rels.children": [...children, newId] });
+  async function updateRelation(targetId, relationType, field) {
+    const ref = doc(db, "members", targetId);
+    const snap = await getDoc(ref);
+    if (snap.exists()) {
+      const data = snap.data();
+      const list = Array.isArray(data.rels?.[field]) ? data.rels[field] : [];
+      if (!list.includes(newId)) {
+        const newList = [...list, newId];
+        updates.push(updateDoc(ref, { [`rels.${field}`]: newList }));
       }
     }
   }
 
-  // 🔁 Cập nhật mẹ
-  if (formValues.mother) {
-    const motherRef = doc(db, "members", formValues.mother);
-    const motherSnap = await getDoc(motherRef);
-    if (motherSnap.exists()) {
-      const motherData = motherSnap.data();
-      const children = Array.isArray(motherData.rels?.children) ? motherData.rels.children : [];
-      if (!children.includes(newId)) {
-        await updateDoc(motherRef, { "rels.children": [...children, newId] });
-      }
-    }
-  }
+  if (formValues.father) await updateRelation(formValues.father, 'father', 'children');
+  if (formValues.mother) await updateRelation(formValues.mother, 'mother', 'children');
+  if (formValues.spouse) await updateRelation(formValues.spouse, 'spouse', 'spouses');
 
-  // 🔁 Nếu có spouse → cập nhật ngược lại
-  if (formValues.spouse) {
-    const spouseRef = doc(db, "members", formValues.spouse);
-    const spouseSnap = await getDoc(spouseRef);
-    if (spouseSnap.exists()) {
-      const spouseData = spouseSnap.data();
-      const spouses = Array.isArray(spouseData.rels?.spouses) ? spouseData.rels.spouses : [];
-      if (!spouses.includes(newId)) {
-        await updateDoc(spouseRef, { "rels.spouses": [...spouses, newId] });
-      }
-    }
-  }
-
+  await Promise.all(updates);
   await Swal.fire('✅ Thành công', 'Thành viên đã được thêm.', 'success');
-  fetchFamilyData();
+  await fetchFamilyData(newId);
 });
+
+// ================= Sửa thành viên =================
+document.getElementById("editMemberBtn").onclick = async () => {
+  const snapshot = await getDocs(collection(db, "members"));
+  const members = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  const options = members.map(m => `<option value="${m.id}">${m["first name"]} ${m["last name"]}</option>`).join("");
+
+  const { value: selectedId } = await Swal.fire({
+    title: "Chọn thành viên để sửa",
+    html: `<select id="selectMember" class="swal2-input">
+      <option value="">-- Chọn --</option>${options}</select>`,
+    preConfirm: () => document.getElementById("selectMember").value
+  });
+
+  if (!selectedId) return;
+  const memberDoc = members.find(m => m.id === selectedId);
+
+  await Swal.fire({
+    title: `Sửa: ${memberDoc["first name"]} ${memberDoc["last name"]}`,
+    html: `
+      <input id="firstName" class="swal2-input" value="${memberDoc["first name"]}" placeholder="Tên">
+      <input id="lastName" class="swal2-input" value="${memberDoc["last name"]}" placeholder="Họ">
+      <input id="birthday" class="swal2-input" value="${memberDoc.birthday || ""}" placeholder="Ngày sinh">
+      <input id="avatar" class="swal2-input" value="${memberDoc.avatar}" placeholder="Ảnh đại diện (URL)">
+      <select id="gender" class="swal2-input">
+        <option value="M" ${memberDoc.gender === 'M' ? 'selected' : ''}>Nam</option>
+        <option value="F" ${memberDoc.gender === 'F' ? 'selected' : ''}>Nữ</option>
+      </select>
+    `,
+    showCancelButton: true,
+    confirmButtonText: "Lưu",
+    preConfirm: async () => {
+      const updated = {
+        "first name": document.getElementById("firstName").value.trim(),
+        "last name": document.getElementById("lastName").value.trim(),
+        birthday: document.getElementById("birthday").value.trim(),
+        avatar: document.getElementById("avatar").value.trim(),
+        gender: document.getElementById("gender").value
+      };
+      await updateDoc(doc(db, "members", selectedId), updated);
+      Swal.fire("✔️ Đã cập nhật!", "", "success");
+      fetchFamilyData(selectedId);
+    }
+  });
+};
+
+// ================= Xoá thành viên =================
+document.getElementById("deleteMemberBtn").onclick = async () => {
+  const snapshot = await getDocs(collection(db, "members"));
+  const members = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  const options = members.map(m => `<option value="${m.id}">${m["first name"]} ${m["last name"]}</option>`).join("");
+
+  const { value: selectedId } = await Swal.fire({
+    title: "Chọn thành viên để xoá",
+    html: `<select id="selectMember" class="swal2-input">
+      <option value="">-- Chọn --</option>${options}</select>`,
+    showCancelButton: true,
+    confirmButtonText: "Xoá",
+    preConfirm: () => document.getElementById("selectMember").value
+  });
+
+  if (!selectedId) return;
+
+  const confirm = await Swal.fire({
+    title: "Xác nhận xoá?",
+    text: "Bạn không thể hoàn tác!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Xoá"
+  });
+
+  if (confirm.isConfirmed) {
+    const updates = [];
+    for (const member of members) {
+      const rels = member.rels || {};
+      const newRels = { ...rels };
+      let changed = false;
+
+      if (rels.father === selectedId) newRels.father = null, changed = true;
+      if (rels.mother === selectedId) newRels.mother = null, changed = true;
+      if (rels.spouses?.includes(selectedId)) newRels.spouses = rels.spouses.filter(id => id !== selectedId), changed = true;
+      if (rels.children?.includes(selectedId)) newRels.children = rels.children.filter(id => id !== selectedId), changed = true;
+
+      if (changed) {
+        const ref = doc(db, "members", member.id);
+        updates.push(updateDoc(ref, { rels: newRels }));
+      }
+    }
+
+    await Promise.all(updates);
+    await deleteDoc(doc(db, "members", selectedId));
+    await Swal.fire("🗑️ Đã xoá!", "", "success");
+    await fetchFamilyData();
+  }
+};
