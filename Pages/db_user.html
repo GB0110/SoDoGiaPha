@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="../CSS/db_editor.css">
     <link rel="stylesheet" href="../CSS/db_user.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" >
-    <title>Dashboard User</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <title>Pha Do</title>
 </head>
 <body>
 <div class="wrapper">
@@ -28,7 +30,7 @@
     <li>
       <div class="menu-title">Phả hệ</div>
       <ul>
-        <li class="menu-btn"><i class="fas fa-sitemap"></i> <span>Phả đồ</span></li>
+        <li class="menu-btn" onclick="location.href='../Pages/db_user.html'"><i class="fas fa-sitemap"></i> <span>Phả đồ</span></li>
         <li class="menu-btn"><i class="fas fa-users"></i> <span>Danh sách thành viên</span></li>
       </ul>
     </li>
@@ -46,7 +48,7 @@
       <ul>
         <li class="menu-btn"><i class="fas fa-home"></i> <span>Nhà thờ tổ</span></li>
         <li class="menu-btn"><i class="fas fa-history"></i> <span>Lịch sử</span></li>
-        <li class="menu-btn"><i class="fas fa-user-clock"></i> <span>Tổ tiên</span></li>
+        <li class="menu-btn" onclick="location.href='../Pages/totien.html'"><i class="fas fa-user-clock"></i> <span>Tổ tiên</span></li>
         <li class="menu-btn"><i class="fas fa-scroll"></i> <span>Truyền thống</span></li>
       </ul>
     </li>
@@ -67,6 +69,7 @@
 
     </div>
     <!-- main -->
+     
     <div class="main-content">
         <div class="header-menu">
           <button id="btn-open"><i class="fa-solid fa-bars"></i></button> 
@@ -76,28 +79,13 @@
           </div>
         </div>
         <div class="content">
-            <h2 id="formTitle" style="text-align:center;">Thêm thành viên mới</h2>
-            <form id="addMemberForm">
-                <input name="firstName" placeholder="Tên" required>
-                <input name="lastName" placeholder="Họ" required>
-                <select name="gender" required>
-                    <option value="M">Nam</option>
-                    <option value="F">Nữ</option>
-                </select>
-                <input name="father" placeholder="ID cha">
-                <input name="mother" placeholder="ID mẹ">
-                <input name="avatar" placeholder="Ảnh đại diện (URL)">
-                <button type="submit">Thêm</button>
-            </form>
-
             <hr />
-
             <div id="FamilyChart" class="f3" style="width:90%;height:100%;margin:auto;background-color: transparent;color:white;"></div>
         </div>
     </div>
     </div>
 
-
+  <script src="../JavaScript/sidebar.js"></script>
     <!-- Firebase logic -->
   <script type="module" src="../JavaScript/an_them_tv_user.js"></script>
   <script type="module" src="../JavaScript/them_thanh_vien.js"></script>
