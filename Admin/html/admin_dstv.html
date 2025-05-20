@@ -83,8 +83,18 @@
                 <input type="text" id="searchInput" placeholder="Tìm kiếm" />
                 <button onclick="handleSearch()" ><i class="fa fa-search"></i></button>
                 <button onclick="showAllMembers()"><i class="fa fa-filter"></i></button>
+                <!-- Thanh chọn lọc giới tính -->
               </div>
-        </div>
+            </div>
+            <div class="genderFilter">
+              <select id="genderFilter" onchange="handleSearch()">
+               <option value="">Tất cả</option>
+               <option value="Nam">Nam</option>
+               <option value="Nữ">Nữ</option>
+               <option value="Khác">Khác</option>
+              </select>
+
+            </div>
 
             <!-- danh sách thành viên -->
         <table class="member-table" id="memberTable">

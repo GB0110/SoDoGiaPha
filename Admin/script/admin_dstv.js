@@ -102,17 +102,24 @@ function showPopup(id) {
   }
   // Tìm kiếm
   function handleSearch() {
-    const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+  const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+  const selectedGender = document.getElementById("genderFilter").value;
 
-    const filtered = members.filter(member =>
-      member.name.toLowerCase().includes(keyword)
-      //  ||
-      // member.email.toLowerCase().includes(keyword) ||
-      // member.role.toLowerCase().includes(keyword)
-    );
+  const filtered = members.filter(member => {
+    const matchKeyword =
+      member.name.toLowerCase().includes(keyword) ||
+      member.email.toLowerCase().includes(keyword) ||
+      member.role.toLowerCase().includes(keyword);
 
-    renderTable(filtered);
-  }
+    const matchGender =
+      !selectedGender || member.gender === selectedGender;
+
+    return matchKeyword && matchGender;
+  });
+
+  renderTable(filtered);
+}
+
   // hiển thì danh sách
   function showAllMembers() {
   document.getElementById("searchInput").value = "";

@@ -202,7 +202,7 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin-bottom: 3px;
 }
 
 /* Nút thêm thành viên */
@@ -240,6 +240,17 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
   background-color: #eee;
   border-radius: 6px;
   cursor: pointer;
+}
+.genderFilter{
+  display: flex;
+  justify-content: flex-end;
+}
+#genderFilter {
+  /* transform: translateX(700px); */
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #999;
+  background-color: #fff;
 }
 
 /* BẢNG DANH SÁCH */
