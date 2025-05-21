@@ -70,7 +70,7 @@ window.loginUser = async function (e) {
       console.log("Vai trò:", role); //DEBUG 
       // Redirect hoặc xử lý theo vai trò
       if (role === "admin") {
-        window.location.href = "#";
+        window.location.href = "quan_tri_vien.html";
       } else if (role === "editor") {
         window.location.href = "su_kien.html";
       } else {
