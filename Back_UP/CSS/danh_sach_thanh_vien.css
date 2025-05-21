@@ -52,15 +52,15 @@
 .main-content.expanded {
    margin-left: 0;
 }
-   .logo{
-   display: flex;
+.logo{
+  display: flex;
   justify-content: center;
   margin:20px 15px 30px ;
-   }
-   .logo img {
+}
+.logo img {
   width: 160px;         
   display: block;
-  
+  border-radius: 10%;  
 }
 
    .divider {
@@ -114,7 +114,7 @@ transition: background-color 0.2s ease, color 0.2s ease;
 }
 .menu-btn i {
   font-size: 15px;
-  color: #8b8b8b;
+  color:#d3cfcf;
    transition: color 0.2s ease;
 }
   /* sáng background */

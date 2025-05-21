@@ -1,233 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../CSS/danh_sach_thanh_vien.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" >
-    <title>Danh sách thành viên</title>
-</head>
-<body>
-  
-<div class="wrapper">
 
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../CSS/danh_sach_thanh_vien.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <title>Danh sách thành viên</title>
+</head>
+
+<body>
+
+  <div class="wrapper">
     <!-- side bar -->
     <div class="sidebar">
-        <div class="logo">
-          <img src="../Picture/logo.png" alt="Logo" />
-        </div>
-      
-        <div class="divider">
-   <span class="diamond left"></span>
-   <span class="line"></span>
-   <span class="diamond right"></span>
-        </div>
+      <div class="logo">
+        <img src="../Picture/logo.png" alt="Logo" />
+      </div>
+      <div class="divider">
+        <span class="diamond left"></span>
+        <span class="line"></span>
+        <span class="diamond right"></span>
+      </div>
 
-       <div class="menu">
-  <ul>
-    <li>
-      <div class="menu-title">Phả hệ</div>
-      <ul>
-        <li class="menu-btn"><i class="fas fa-sitemap"></i> <span>Phả đồ</span></li>
-        <li class="menu-btn" data-page="admin_dstv.html"><i class="fas fa-users"></i> <span>Danh sách thành viên</span></li>
-      </ul>
-    </li>
+      <div class="menu">
+        <ul>
+          <li>
+            <div class="menu-title">Phả hệ</div>
+            <ul>
+              <li class="menu-btn" onclick="location.href='../Page/pha_do.html'"><i class="fas fa-sitemap"></i><span>Phả
+                  đồ</span></li>
+              <li class="menu-btn" onclick="location.href='../Page/danh_sach_thanh_vien.html'"><i
+                  class="fas fa-users"></i> <span>Danh sách thành viên</span></li>
+            </ul>
+          </li>
 
-    <li>
-      <div class="menu-title">Tin tức</div>
-      <ul>
-        <li class="menu-btn"><i class="fas fa-newspaper"></i> <span>Bài viết</span></li>
-        <li class="menu-btn"><i class="fas fa-calendar-alt"></i> <span>Sự kiện</span></li>
-      </ul>
-    </li>
+          <li>
+            <div class="menu-title">Tin tức</div>
+            <ul>
+              <li class="menu-btn" onclick="location.href=''"><i class="fas fa-newspaper"></i> <span>Bài viết</span>
+              </li>
+              <li class="menu-btn" onclick="location.href='../Page/su_kien.html'"><i
+                  class="fas fa-calendar-alt"></i><span>Sự kiện</span></li>
+            </ul>
+          </li>
 
-    <li>
-      <div class="menu-title">Phả ký</div>
-      <ul>
-        <li class="menu-btn"><i class="fas fa-home"></i> <span>Nhà thờ tổ</span></li>
-        <li class="menu-btn"><i class="fas fa-history"></i> <span>Lịch sử</span></li>
-        <li class="menu-btn"><i class="fas fa-user-clock"></i> <span>Tổ tiên</span></li>
-        <li class="menu-btn"><i class="fas fa-scroll"></i> <span>Truyền thống</span></li>
-      </ul>
-    </li>
+          <li>
+            <div class="menu-title">Phả ký</div>
+            <ul>
+              <li class="menu-btn" onclick="location.href='../Page/nha_tho_to.html'"><i
+                  class="fas fa-home"></i><span>Nhà thờ tổ</span></li>
+              <li class="menu-btn" onclick="location.href='../Page/lich_su.html'"><i
+                  class="fas fa-history"></i><span>Lịch sử</span></li>
+              <li class="menu-btn" onclick="location.href='../Page/to_tien.html'"><i
+                  class="fas fa-user-clock"></i><span>Tổ tiên</span></li>
+              <li class="menu-btn" onclick="location.href='../Page/truyen_thong.html'"><i
+                  class="fas fa-scroll"></i><span>Truyền thống</span></li>
+            </ul>
+          </li>
 
-    <li>
-      <div class="menu-title">Công đức</div>
-    </li>
-
-    <li>
-      <div class="menu-title">Thông tin</div>
-      <ul>
-        <li class="menu-btn" > <a href="Admin_QuanTri.html"><i class="fas fa-user-shield"></i> <span>Quản trị viên</span></li></a>     
-        <li class="menu-btn"><a href="admin_taikhoan.html"><i class="fas fa-user-circle"></i> <span>Tài khoản</span></a></li>
-      </ul>
-    </li>
-  </ul>
-</div>
-
+          <li>
+            <div class="menu-title">Thông tin</div>
+            <ul>
+              <li class="menu-btn" onclick="location.href='../Page/quan_tri_vien.html'"><i
+                  class="fas fa-user-shield"></i> <span>Quản trị viên</span></li>
+              <li class="menu-btn" onclick="location.href='../Page/tai_khoan.html'"><i
+                  class="fas fa-user-circle"></i><span>Tài khoản</span></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
     <!-- main -->
     <div class="main-content">
-        <div class="header-menu">
-          <button id="btn-open"><i class="fa-solid fa-bars"></i></button> 
-          <div class="menu-avatar">
-            <button id="btn-avatar"><i class="fas fa-user-circle"></i></button> 
-            <div>tên người dùng</div>
+      <div class="header-menu">
+        <button id="btn-open"><i class="fa-solid fa-bars"></i></button>
+        <div class="menu-avatar">
+          <button id="btn-avatar"><i class="fas fa-user-circle"></i></button>
+          <div>tên người dùng</div>
+        </div>
+      </div>
+      <div class="nen">
+        <div class="header-search">
+          <button class="btn-add-member" onclick="showPopup('popupAdd')">Thêm thành viên</button>
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm" />
+            <button onclick="handleSearch()"><i class="fa fa-search"></i></button>
+            <button onclick="showAllMembers()"><i class="fa fa-filter"></i></button>
+            <!-- Thanh chọn lọc giới tính -->
           </div>
         </div>
-        <div class="nen">
+        <div class="genderFilter">
+          <select id="genderFilter" onchange="handleSearch()">
+            <option value="">Tất cả</option>
+            <option value="Nam">Nam</option>
+            <option value="Nữ">Nữ</option>
+            <option value="Khác">Khác</option>
+          </select>
+        </div>
 
-          <div class="header-search">
-              <button class="btn-add-member" onclick="showPopup('popupAdd')">Thêm thành viên</button>
-              <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Tìm kiếm" />
-                <button onclick="handleSearch()" ><i class="fa fa-search"></i></button>
-                <button onclick="showAllMembers()"><i class="fa fa-filter"></i></button>
-                <!-- Thanh chọn lọc giới tính -->
-              </div>
+        <!-- danh sách thành viên -->
+        <table class="member-table" id="memberTable">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Họ tên</th>
+              <th>Giới tính</th>
+              <th>Ngày sinh</th>
+              <th>Cha</th>
+              <th>Mẹ</th>
+              <th>Vợ/Chồng</th>
+              <th class="edit-column">Chỉnh sửa</th>
+            </tr>
+          </thead>
+          <tbody id="memberBody">
+
+          </tbody>
+        </table>
+
+      </div>
+      <!-- Overlay + Popup -->
+      <!-- popup thêm thành viên -->
+      <div class="popup-overlay" id="popupAdd">
+        <div class="popup-content">
+          <h3 class="popup-title">Thêm thành viên</h3>
+          <div class="popup-body">
+            <!-- Cột ảnh -->
+            <div class="popup-left">
+              <img src="avatar-default.png" class="avatar-preview" id="avatarPreview" />
+              <input type="file" id="avatarInput" accept="image/*" onchange="previewAvatar(event)">
+
             </div>
-            <div class="genderFilter">
-              <select id="genderFilter" onchange="handleSearch()">
-               <option value="">Tất cả</option>
-               <option value="Nam">Nam</option>
-               <option value="Nữ">Nữ</option>
-               <option value="Khác">Khác</option>
+
+            <!-- Cột form -->
+            <div class="popup-right">
+              <label>Họ và tên</label>
+              <input type="text" id="addName" placeholder="Nhập họ tên" />
+
+              <label>Giới tính</label>
+              <select id="addGender">
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+                <option value="Khác">Khác</option>
               </select>
 
+              <label>Ngày sinh</label>
+              <input type="date" id="addBirth" />
+
+              <label>Cha</label>
+              <select id="addFather" class="input-dropdown">
+                <option value="">-- Không chọn --</option>
+              </select>
+
+              <label>Mẹ</label>
+              <select id="addMother" class="input-dropdown">
+                <option value="">-- Không chọn --</option>
+              </select>
+
+              <label>Vợ/Chồng</label>
+              <select id="addSpouse" class="input-dropdown">
+                <option value="">-- Không chọn --</option>
+              </select>
+
+
+              <!-- Nút -->
+              <div class="popup-actions">
+                <button class="btn-cancel" onclick="closePopup('popupAdd')"><i class="fa fa-xmark"></i> Hủy bỏ</button>
+                <button class="btn-submit" onclick="handleAdd()"><i class="fa fa-upload"></i> Thêm</button>
+              </div>
             </div>
-
-            <!-- danh sách thành viên -->
-        <table class="member-table" id="memberTable">
-    <thead>
-      <tr>
-         <th>STT</th>
-      <th>Họ tên</th>
-      <th>Giới tính</th>
-      <th>Ngày sinh</th>
-      <th>Cha</th>
-      <th>Mẹ</th>
-      <th>Vợ/Chồng</th>
-      <th>Chỉnh sửa</th>
-      </tr>
-    </thead>
-    <tbody  id="memberBody">
-    
-    </tbody>
-  </table>  
-
-</div>
-<!-- Overlay + Popup -->
- <!-- popup thêm thành viên -->
-<div class="popup-overlay" id="popupAdd">
-<div class="popup-content">
-<h3 class="popup-title">Thêm thành viên</h3>
-<div class="popup-body">
-  <!-- Cột ảnh -->
-  <div class="popup-left">
-    <img src="avatar-default.png" class="avatar-preview" id="avatarPreview" />
-    <input type="file" id="avatarInput" accept="image/*" onchange="previewAvatar(event)">
-    
-  </div>
-
-  <!-- Cột form -->
-  <div class="popup-right">
-    <label>Họ và tên</label>
-    <input type="text" id="addName" placeholder="Nhập họ tên" />
-
-        <label>Giới tính</label>
-        <select id="addGender">
-          <option value="Nam">Nam</option>
-          <option value="Nữ">Nữ</option>
-          <option value="Khác">Khác</option>
-        </select>
-
-        <label>Ngày sinh</label>
-        <input type="date" id="addBirth" />
-
-        <label>Cha</label>
-        <select id="addFather" class="input-dropdown">
-            <option value="">-- Không chọn --</option>
-        </select>
-
-        <label>Mẹ</label>
-        <select id="addMother" class="input-dropdown">
-            <option value="">-- Không chọn --</option>
-        </select>
-
-        <label>Vợ/Chồng</label>
-        <select id="addSpouse" class="input-dropdown">
-            <option value="">-- Không chọn --</option>
-        </select>
-
-
-    <!-- Nút -->
-    <div class="popup-actions">
-      <button class="btn-cancel" onclick="closePopup('popupAdd')"><i class="fa fa-xmark"></i> Hủy bỏ</button>
-      <button class="btn-submit" onclick="handleAdd()"><i class="fa fa-upload"></i> Thêm</button>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-
-<!-- ✏️ POPUP SỬA -->
-<div class="popup-overlay" id="popupEdit">
-  <div class="popup-content">
-    <h3 class="popup-title">Chỉnh sửa thông tin</h3>
-    <div class="popup-body">
-      <div class="popup-left">
-        <img src="avatar-default.png" class="avatar-preview" id="avatarPreview" />
-    <input type="file" id="avatarInput" accept="image/*" onchange="previewAvatar(event)">
-      </div>
-      <div class="popup-right">
-        <label>Họ và tên</label>
-        <input type="text" id="editName" />
-        <label>Giới tính</label>
-        <select id="editGender">
-          <option value="Nam">Nam</option>
-          <option value="Nữ">Nữ</option>
-          <option value="Khác">Khác</option>
-        </select>
-
-        <label>Ngày sinh</label>
-        <input type="date" id="editBirth" />
-
-        <label>Cha</label>
-        <input type="text" id="editFather" />
-
-        <label>Mẹ</label>
-        <input type="text" id="editMother" />
-
-        <label>Vợ/Chồng</label>
-        <input type="text" id="editSpouse" />
-
-        <div class="popup-actions">
-          <button class="btn-cancel" onclick="closePopup('popupEdit')"><i class="fa fa-xmark"></i> Hủy</button>
-          <button class="btn-update" onclick="handleUpdate()"><i class="fa fa-save"></i> Cập nhật</button>
+          </div>
         </div>
       </div>
+
+      <!-- ✏️ POPUP SỬA -->
+      <div class="popup-overlay" id="popupEdit">
+        <div class="popup-content">
+          <h3 class="popup-title">Chỉnh sửa thông tin</h3>
+          <div class="popup-body">
+            <div class="popup-left">
+              <img src="avatar-default.png" class="avatar-preview" id="avatarPreview" />
+              <input type="file" id="avatarInput" accept="image/*" onchange="previewAvatar(event)">
+            </div>
+            <div class="popup-right">
+              <label>Họ và tên</label>
+              <input type="text" id="editName" />
+              <label>Giới tính</label>
+              <select id="editGender">
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+                <option value="Khác">Khác</option>
+              </select>
+
+              <label>Ngày sinh</label>
+              <input type="date" id="editBirth" />
+
+              <label>Cha</label>
+              <input type="text" id="editFather" />
+
+              <label>Mẹ</label>
+              <input type="text" id="editMother" />
+
+              <label>Vợ/Chồng</label>
+              <input type="text" id="editSpouse" />
+
+              <div class="popup-actions">
+                <button class="btn-cancel" onclick="closePopup('popupEdit')"><i class="fa fa-xmark"></i> Hủy</button>
+                <button class="btn-update" onclick="handleUpdate()"><i class="fa fa-save"></i> Cập nhật</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Popup XÓA -->
+      <div class="popup-overlay" id="popupDelete">
+        <div class="popup-content delete-popup">
+          <div class="popup-icon">
+            <i class="fas fa-exclamation-circle"></i>
+          </div>
+          <p class="popup-text">
+            Bạn muốn xóa thành viên: <span id="deleteName">Tên</span>
+          </p>
+          <div class="popup-actions delete-actions">
+            <button class="btn-submit" onclick="closePopup('popupDelete')">Hủy bỏ</button>
+            <button class="btn-cancel" onclick="confirmDelete()">Xóa</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
-
-<!-- Popup XÓA -->
-<div class="popup-overlay" id="popupDelete">
-  <div class="popup-content delete-popup">
-    <div class="popup-icon">
-      <i class="fas fa-exclamation-circle"></i>
-    </div>
-    <p class="popup-text">
-      Bạn muốn xóa thành viên: <span id="deleteName">Tên</span>
-    </p>
-    <div class="popup-actions delete-actions">
-      <button class="btn-submit" onclick="closePopup('popupDelete')">Hủy bỏ</button>
-      <button class="btn-cancel" onclick="confirmDelete()">Xóa</button>
-    </div>
-  </div>
-</div>
-
-</div>
-
-    <script type="module" src="../Javascript/Danh sach thanh vien/danh_sach_thanh_vien.js"></script>
+  <script type="module" src="../Javascript/Danh sach thanh vien/danh_sach_thanh_vien.js"></script>
 </body>
+
 </html>

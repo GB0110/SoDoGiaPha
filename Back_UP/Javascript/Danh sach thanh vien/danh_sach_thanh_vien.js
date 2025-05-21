@@ -1,4 +1,3 @@
-// danh_sach_thanh_vien.js
 import {
   collection,
   getDocs,
@@ -8,15 +7,103 @@ import {
   doc,
   getDoc
 } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
+
 import { db } from "../fconfig.js";
 
 let members = [];
 let currentEditId = null;
 let currentDeleteId = null;
+let currentUserRole = null;
+
+const auth = getAuth();
+
+const memberIdToName = new Map();
+
+async function getCurrentUserRole(uid) {
+  if (!uid) return null;
+  const userDoc = await getDoc(doc(db, "users", uid));
+  if (userDoc.exists()) return userDoc.data().role || null;
+  return null;
+}
+
+// Ẩn/hiện UI theo role: ẩn nút thêm, cột chỉnh sửa tiêu đề và ô chỉnh sửa
+function handleRoleUI() {
+  const addBtn = document.querySelector(".btn-add-member");
+  const editColumn = document.querySelector("th.edit-column");
+  const tbody = document.getElementById("memberBody");
+
+  if (currentUserRole === "user") {
+    if (addBtn) addBtn.style.display = "none";
+    if (editColumn) editColumn.style.display = "none";
+    tbody.querySelectorAll("td.edit-cell").forEach(td => td.style.display = "none");
+  } else {
+    if (addBtn) addBtn.style.display = "";
+    if (editColumn) editColumn.style.display = "";
+    tbody.querySelectorAll("td.edit-cell").forEach(td => td.style.display = "");
+  }
+}
+
+async function loadMembersFromFirestore() {
+  const snapshot = await getDocs(collection(db, "members"));
+
+  memberIdToName.clear();
+
+  members = snapshot.docs.map(docSnap => {
+    const data = docSnap.data();
+    const id = docSnap.id;
+    const fullName = `${data["first name"]} ${data["last name"]}`;
+    memberIdToName.set(id, fullName);
+
+    return {
+      id,
+      name: fullName,
+      gender: data.gender === "M" ? "Nam" : data.gender === "F" ? "Nữ" : "Khác",
+      birth: data.birthday,
+      rels: data.rels || {},
+      avatar: data.avatar || "avatar-default.png"
+    };
+  });
+
+  renderTable(members);
+  handleRoleUI();
+}
+
+function renderTable(data) {
+  const tbody = document.getElementById("memberBody");
+  tbody.innerHTML = "";
+
+  data.forEach((member, index) => {
+    const fatherName = memberIdToName.get(member.rels.father) || "";
+    const motherName = memberIdToName.get(member.rels.mother) || "";
+    const spouseName = (member.rels.spouses && member.rels.spouses[0])
+      ? memberIdToName.get(member.rels.spouses[0]) || ""
+      : "";
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${member.name}</td>
+      <td>${member.gender}</td>
+      <td>${member.birth}</td>
+      <td>${fatherName}</td>
+      <td>${motherName}</td>
+      <td>${spouseName}</td>
+      <td class="edit-cell">
+        <i class="fa fa-edit" onclick="showEditPopup('${member.id}')"></i>
+        <i class="fa fa-trash" onclick="showDeletePopup('${member.id}')"></i>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
+}
 
 window.showPopup = async function(id) {
   document.getElementById(id).classList.add("show");
-
   if (id === "popupAdd") {
     await populateDropdowns();
   }
@@ -30,79 +117,27 @@ async function populateDropdowns() {
   const snapshot = await getDocs(collection(db, "members"));
   const allMembers = snapshot.docs.map(doc => {
     const data = doc.data();
-    return {
-      id: doc.id,
-      name: `${data["first name"]} ${data["last name"]}`
-    };
+    return { id: doc.id, name: `${data["first name"]} ${data["last name"]}` };
   });
 
-  const options = allMembers.map(member => `<option value="${member.id}">${member.name}</option>`).join("");
+  const options = allMembers.map(m => `<option value="${m.id}">${m.name}</option>`).join("");
 
-  document.getElementById("addFather").innerHTML = `<option value="">-- Không chọn --</option>` + options;
-  document.getElementById("addMother").innerHTML = `<option value="">-- Không chọn --</option>` + options;
-  document.getElementById("addSpouse").innerHTML = `<option value="">-- Không chọn --</option>` + options;
-}
-
-async function getMemberNameById(id) {
-  if (!id) return "";
-  const ref = doc(db, "members", id);
-  const snap = await getDoc(ref);
-  if (snap.exists()) {
-    const data = snap.data();
-    return `${data["first name"]} ${data["last name"]}`;
-  }
-  return "(không rõ)";
-}
-
-async function loadMembersFromFirestore() {
-  const snapshot = await getDocs(collection(db, "members"));
-  members = await Promise.all(snapshot.docs.map(async docSnap => {
-    const data = docSnap.data();
-    return {
-      id: docSnap.id,
-      name: `${data["first name"]} ${data["last name"]}`,
-      gender: data.gender === "M" ? "Nam" : data.gender === "F" ? "Nữ" : "Khác",
-      birth: data.birthday,
-      father: await getMemberNameById(data.rels?.father),
-      mother: await getMemberNameById(data.rels?.mother),
-      spouse: data.rels?.spouses?.[0] ? await getMemberNameById(data.rels.spouses[0]) : "",
-      avatar: data.avatar || "avatar-default.png"
-    };
-  }));
-  renderTable(members);
-}
-
-function renderTable(data) {
-  const tbody = document.getElementById("memberBody");
-  tbody.innerHTML = "";
-  data.forEach((member, index) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${member.name}</td>
-      <td>${member.gender}</td>
-      <td>${member.birth}</td>
-      <td>${member.father}</td>
-      <td>${member.mother}</td>
-      <td>${member.spouse}</td>
-      <td>
-        <i class="fa fa-edit" onclick="showEditPopup('${member.id}')"></i>
-        <i class="fa fa-trash" onclick="showDeletePopup('${member.id}')"></i>
-      </td>
-    `;
-    tbody.appendChild(row);
-  });
+  document.getElementById("addFather").innerHTML = `<option value="">-- Không chọn --</option>${options}`;
+  document.getElementById("addMother").innerHTML = `<option value="">-- Không chọn --</option>${options}`;
+  document.getElementById("addSpouse").innerHTML = `<option value="">-- Không chọn --</option>${options}`;
 }
 
 window.showEditPopup = function(id) {
   const member = members.find(m => m.id === id);
   if (!member) return;
+
   document.getElementById("editName").value = member.name;
   document.getElementById("editGender").value = member.gender;
   document.getElementById("editBirth").value = member.birth;
-  document.getElementById("editFather").value = member.father;
-  document.getElementById("editMother").value = member.mother;
-  document.getElementById("editSpouse").value = member.spouse;
+  document.getElementById("editFather").value = member.rels.father || "";
+  document.getElementById("editMother").value = member.rels.mother || "";
+  document.getElementById("editSpouse").value = (member.rels.spouses && member.rels.spouses[0]) || "";
+
   currentEditId = id;
   showPopup("popupEdit");
 };
@@ -123,8 +158,8 @@ window.handleUpdate = async function() {
       birthday: birth,
       gender: gender === "Nam" ? "M" : gender === "Nữ" ? "F" : "O",
       rels: {
-        father,
-        mother,
+        father: father || null,
+        mother: mother || null,
         spouses: spouse ? [spouse] : [],
         children: []
       }
@@ -195,7 +230,7 @@ async function addToFirestore(name, gender, birth, father, mother, spouse, avata
 
   const newId = newRef.id;
 
-  // Cập nhật cha, mẹ: thêm con vào danh sách children
+  // Cập nhật quan hệ cha mẹ (thêm con vào children)
   async function updateRelation(targetId, field) {
     const ref = doc(db, "members", targetId);
     const snap = await getDoc(ref);
@@ -210,7 +245,7 @@ async function addToFirestore(name, gender, birth, father, mother, spouse, avata
   if (father) await updateRelation(father, 'children');
   if (mother) await updateRelation(mother, 'children');
 
-  // Cập nhật ngược lại cho spouse
+  // Cập nhật quan hệ vợ/chồng ngược lại
   if (spouse) {
     const spouseRef = doc(db, "members", spouse);
     const spouseSnap = await getDoc(spouseRef);
@@ -253,11 +288,21 @@ window.handleSearch = function() {
     return matchKeyword && matchGender;
   });
   renderTable(filtered);
+  handleRoleUI(); // Gọi ẩn/hiện lại cột chỉnh sửa sau khi lọc
 };
 
 window.showAllMembers = function() {
   document.getElementById("searchInput").value = "";
   renderTable(members);
+  handleRoleUI(); // Gọi ẩn/hiện lại cột chỉnh sửa khi hiển thị tất cả
 };
 
-loadMembersFromFirestore();
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    currentUserRole = await getCurrentUserRole(user.uid);
+    handleRoleUI();  // ẩn/hiện UI ngay khi có role
+    await loadMembersFromFirestore();
+  } else {
+    alert("Vui lòng đăng nhập để sử dụng chức năng này.");
+  }
+});

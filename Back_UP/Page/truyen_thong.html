@@ -1,78 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Truyền thống</title>
     <link rel="stylesheet" href="../CSS/Pha_ky.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
-    <body>
-        <div class="wrapper">
-            <!-- side bar -->
-            <div class="sidebar">
-                <div class="logo">
-                    <img src="../Picture/logo.png" alt="Logo" />
-                </div>
-                <div class="divider">
-                    <span class="diamond left"></span>
-                    <span class="line"></span>
-                    <span class="diamond right"></span>
-                </div>
 
-                <div class="menu">
-                    <ul>
-                        <li>
-                            <div class="menu-title">Phả hệ</div>
-                            <ul>
-                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-sitemap"></i> <span>Phả đồ</span></li>
-                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-users"></i> <span>Danh sách thành viên</span></li>
-                            </ul>
-                        </li>
+<body>
+    <div class="wrapper">
+        <!-- side bar -->
+        <div class="sidebar">
+            <div class="logo">
+                <img src="../Picture/logo.png" alt="Logo" />
+            </div>
+            <div class="divider">
+                <span class="diamond left"></span>
+                <span class="line"></span>
+                <span class="diamond right"></span>
+            </div>
 
-                        <li>
-                            <div class="menu-title">Tin tức</div>
-                            <ul>
-                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-newspaper"></i> <span>Bài viết</span></li>
-                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-calendar-alt"></i> <span>Sự kiện</span></li>
-                            </ul>
-                        </li>
+            <div class="menu">
+                <ul>
+                    <li>
+                        <div class="menu-title">Phả hệ</div>
+                        <ul>
+                            <li class="menu-btn" onclick="location.href='../Page/pha_do.html'"><i
+                                    class="fas fa-sitemap"></i> <span>Phả đồ</span></li>
+                            <li class="menu-btn" onclick="location.href='../Page/danh_sach_thanh_vien.html'"><i
+                                    class="fas fa-users"></i> <span>Danh sách thành viên</span></li>
+                        </ul>
+                    </li>
 
-                        <li>
-                            <div class="menu-title">Phả ký</div>
-                            <ul>
-                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-home"></i> <span>Nhà thờ tổ</span></li>
-                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-history"></i> <span>Lịch sử</span></li>
-                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-user-clock"></i> <span>Tổ tiên</span></li>
-                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-scroll"></i> <span>Truyền thống</span></li>
-                            </ul>
-                        </li>
+                    <li>
+                        <div class="menu-title">Tin tức</div>
+                        <ul>
+                            <li class="menu-btn" onclick="location.href=''"><i class="fas fa-newspaper"></i> <span>Bài
+                                    viết</span></li>
+                            <li class="menu-btn" onclick="location.href='../Page/su_kien.html'"><i
+                                    class="fas fa-calendar-alt"></i> <span>Sự kiện</span></li>
+                        </ul>
+                    </li>
 
-                        <li>
-                            <div class="menu-title">Công đức</div>
-                        </li>
+                    <li>
+                        <div class="menu-title">Phả ký</div>
+                        <ul>
+                            <li class="menu-btn" onclick="location.href='../Page/nha_tho_to.html'"><i
+                                    class="fas fa-home"></i> <span>Nhà thờ tổ</span></li>
+                            <li class="menu-btn" onclick="location.href='../Page/lich_su.html'"><i
+                                    class="fas fa-history"></i> <span>Lịch sử</span></li>
+                            <li class="menu-btn" onclick="location.href='../Page/to_tien.html'"><i
+                                    class="fas fa-user-clock"></i> <span>Tổ tiên</span></li>
+                            <li class="menu-btn" onclick="location.href='../Page/truyen_thong.html'"><i
+                                    class="fas fa-scroll"></i> <span>Truyền thống</span></li>
+                        </ul>
+                    </li>
 
-                        <li>
-                            <div class="menu-title">Thông tin</div>
-                            <ul>
-                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-user-shield"></i> <span>Quản trị viên</span></li>
-                                <li class="menu-btn" onclick="location.href=''"><i class="fas fa-user-circle"></i> <span>Tài khoản</span></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <li>
+                        <div class="menu-title">Thông tin</div>
+                        <ul>
+                            <li class="menu-btn" onclick="location.href='../Page/quan_tri_vien.html'"><i
+                                    class="fas fa-user-shield"></i> <span>Quản trị viên</span></li>
+                            <li class="menu-btn" onclick="location.href='../Page/tai_khoan.html'"><i
+                                    class="fas fa-user-circle"></i> <span>Tài khoản</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- main -->
+
+        <div class="main-content">
+            <div class="header-menu">
+                <button id="btn-open"><i class="fa-solid fa-bars"></i></button>
+                <div class="menu-avatar">
+                    <button id="btn-avatar"><i class="fas fa-user-circle"></i></button>
+                    <div>Tên người dùng</div>
                 </div>
             </div>
-            <!-- main -->
-            
-            <div class="main-content">
-                <div class="header-menu">
-                    <button id="btn-open"><i class="fa-solid fa-bars"></i></button> 
-                    <div class="menu-avatar">
-                        <button id="btn-avatar"><i class="fas fa-user-circle"></i></button> 
-                        <div>Tên người dùng</div>
-                    </div>
-                </div>
-                <div class="content">
-                    <div class="container">
+            <div class="content">
+                <div class="container">
                     <h1>TRUYỀN THỐNG DÒNG HỌ NGUYỄN</h1>
 
                     <h2>Phong tục tập quán</h2>
@@ -121,5 +129,6 @@
         </div>
 
         <script src="../Javascript/sidebar_trong.js"></script>
-    </body>
+</body>
+
 </html>
