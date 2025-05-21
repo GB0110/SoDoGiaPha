@@ -20,37 +20,12 @@
   color: #333;
 }
 
-/* Vùng chọn lọc giới tính và nút lọc */
-.filter-bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Select lọc giới tính */
-#filterGender {
-  padding: 6px;
-  font-size: 14px;
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  background-color: #fff;
-}
-
-/* Nút Lọc */
-#applyFilter {
-  padding: 6px 12px;
-  background-color: #fff;
-  border: 1px solid #aaa;
-  border-radius: 4px;
+#addMemberBtn, #editMemberBtn, #deleteMemberBtn {
+  max-width: fit-content;
+  background: transparent;
+  border: none;
+  margin-bottom: 5px;
   cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-#applyFilter i {
-  color: #333;
 }
 
 form {
