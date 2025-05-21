@@ -127,13 +127,31 @@ async function populateDropdowns() {
   document.getElementById("addSpouse").innerHTML = `<option value="">-- Không chọn --</option>${options}`;
 }
 
-window.showEditPopup = function(id) {
+async function populateEditDropdowns() {
+  const snapshot = await getDocs(collection(db, "members"));
+  const allMembers = snapshot.docs.map(doc => {
+    const data = doc.data();
+    return { id: doc.id, name: `${data["first name"]} ${data["last name"]}` };
+  });
+
+  const options = allMembers.map(m => `<option value="${m.id}">${m.name}</option>`).join("");
+
+  document.getElementById("editFather").innerHTML = `<option value="">-- Không chọn --</option>${options}`;
+  document.getElementById("editMother").innerHTML = `<option value="">-- Không chọn --</option>${options}`;
+  document.getElementById("editSpouse").innerHTML = `<option value="">-- Không chọn --</option>${options}`;
+}
+
+
+window.showEditPopup = async function(id) {
   const member = members.find(m => m.id === id);
   if (!member) return;
+
+  await populateEditDropdowns(); // load danh sách thành viên vào dropdown
 
   document.getElementById("editName").value = member.name;
   document.getElementById("editGender").value = member.gender;
   document.getElementById("editBirth").value = member.birth;
+
   document.getElementById("editFather").value = member.rels.father || "";
   document.getElementById("editMother").value = member.rels.mother || "";
   document.getElementById("editSpouse").value = (member.rels.spouses && member.rels.spouses[0]) || "";
@@ -141,6 +159,7 @@ window.showEditPopup = function(id) {
   currentEditId = id;
   showPopup("popupEdit");
 };
+
 
 window.handleUpdate = async function() {
   const name = document.getElementById("editName").value.trim();
