@@ -1,4 +1,4 @@
-// nút menu sidebar
+// nút menu bật tắt sidebar
 const btnOpen = document.getElementById('btn-open');
   const sidebar = document.querySelector('.sidebar');
   const mainContent = document.querySelector('.main-content');
@@ -9,7 +9,7 @@ const btnOpen = document.getElementById('btn-open');
     mainContent.classList.toggle('expanded');
     btnOpen.classList.toggle('rotated');
   });
-//trang nào sẽ sáng menu sidebar đó
+ // đánh dấu trang đang mở sideabar
 
    // Lấy tên file hiện tại từ URL
   const currentPage = window.location.pathname.split("/").pop();
@@ -31,11 +31,11 @@ const btnOpen = document.getElementById('btn-open');
 function showPopup(id) {
     document.getElementById(id).classList.add("show");
   }
-
+ // đóng popup
   function closePopup(id) {
     document.getElementById(id).classList.remove("show");
   }
-
+// kiểm tra nhập thông tin
   function handleAdd() {
     const name = document.getElementById("addName").value.trim();
     const email = document.getElementById("addEmail").value.trim();
@@ -173,7 +173,7 @@ function addMemberToList(name, email, role, avatarUrl) {
     currentEditId = id;
     showPopup("popupEdit");
   }
-
+ // sửa thành viên
   function handleUpdate() {
     const name = document.getElementById("editName").value.trim();
     const email = document.getElementById("editEmail").value.trim();
@@ -201,7 +201,7 @@ function addMemberToList(name, email, role, avatarUrl) {
     currentDeleteId = id;
     showPopup("popupDelete");
   }
-
+ // xác nhận xóa thành viên
   function confirmDelete() {
     console.log("Đang xóa ID:", currentDeleteId);
     members = members.filter(m => m.id !== currentDeleteId);
@@ -209,7 +209,7 @@ function addMemberToList(name, email, role, avatarUrl) {
     closePopup("popupDelete");
   }
 
-    // xem trước ảnh
+    // xem trước ảnh trước khi chọn file
     function previewAvatar(event) {
   const file = event.target.files[0];
   const preview = document.getElementById("avatarPreview");

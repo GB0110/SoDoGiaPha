@@ -28,7 +28,7 @@ const btnOpen = document.getElementById('btn-open');
   // Mở popup
 function showPopup(id) {
     document.getElementById(id).classList.add("show");
-
+  // nếu 
     if (id === "popupUpdate") {
     const name = document.getElementById('nameInput').value;
     const email = document.getElementById('emailInput').value;
@@ -44,7 +44,7 @@ function showPopup(id) {
     }
   }
   }
-
+// đóng poppup
   function closePopup(id) {
     document.getElementById(id).classList.remove("show");
   }
@@ -74,7 +74,7 @@ function showPopup(id) {
     preview.src = "avatar-default.png"; // reset nếu bỏ chọn
   }
 }
-
+// 
 function handleUpdateInfo() {
     // Lấy dữ liệu
     const name = document.getElementById('updateName').value.trim();
@@ -109,6 +109,7 @@ function handleUpdateInfo() {
   document.getElementById('phoneInput').value = "";
   document.getElementById('profileAvatar').src = "avatar-default.png";
   }
+  // 
   function previewUpdateAvatar(event) {
   const file = event.target.files[0];
   const preview = document.getElementById("updateAvatarPreview");
