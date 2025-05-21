@@ -73,40 +73,34 @@
           </div>
         </div>
         <div class="content">
-          <section class="summary-cards">
-            <div class="card">
-              <div class="count">10</div>
-              <i class="fa-solid fa-users"></i>
-              <div class="label">Thành viên</div>
-              <button>Xem thêm</button>
-            </div>
-            <div class="card">
-              <div class="count">10</div>
-              <i class="fa-solid fa-calendar-days"></i>
-              <div class="label">Sự kiện</div>
-
-              <button>Xem thêm</button>
-            </div>
-            <div class="card">
-              <div class="count">10</div>
-              <i class="fa-solid fa-book"></i>
-              <div class="label">Bài viết</div>
-              <button>Xem thêm</button>
-            </div>
-          </section>
           <section class="event-list">
               <h3>Sự kiện sắp diễn ra</h2>
-              <ul>
-                <li>Sự kiện 1</li>
-                <li>Sự kiện 1</li>
-                <li>Sự kiện 1</li>
-                <li>Sự kiện 1</li>
+                <button id="btnAddEvent" type="button">Tạo sự kiện</button> 
+              <ul id="eventItems">
+                <!-- Dữ liệu từ script đẩy qua -->
               </ul>
+              <div id="eventFormContainer">
+                <h4>Thêm sự kiện mới</h4>
+                <form id="eventForm">
+                  <label for="eventName">Tên sự kiện:</label><br>
+                  <input type="text" id="eventName" name="eventName" required style="width:100%;"><br><br>
+                  <!-- required: thuộc tính bắt buộc của html 5. phải nhập nội dung gòi mới đc gửi form -->
+                  <label for="eventDate">Ngày diễn ra:</label><br>
+                  <input type="date" id="eventDate" name="eventDate" required style="width:100%;"><br><br>
+            
+                  <label for="eventLocation">Địa điểm:</label><br>
+                  <input type="text" id="eventLocation" name="eventLocation" required style="width:100%;"><br><br>
+            
+                  <button type="submit" id="submit">Lưu</button>
+                  <button type="button" id="btnCancelEvent">Hủy</button>
+                </form>
+              </div>
             </section>
         </div>
     </div>
     </div>
 
     <script src="../JavaScript/sidebar.js"></script>
-</body>
+    <script src="../JavaScript/db_editor.js"></script>
+</body> 
 </html>
