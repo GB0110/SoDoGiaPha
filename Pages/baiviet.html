@@ -34,17 +34,8 @@
                     </li>
 
                     <li>
-                        <div class="menu-title">Tin tức</div>
-                        <ul>
-                            <li class="menu-btn">
-                                <a href="../Pages/baiviet.html">
-                                    <i class="fas fa-newspaper"></i> <span>Bài viết</span>
-                                </a>
-                            </li>
-                            <li class="menu-btn"><i class="fas fa-calendar-alt"></i> <span>Sự kiện</span></li>
-                        </ul>
+                        <div class="menu-title">Ngoại phả</div>
                     </li>
-
                     <li>
                         <div class="menu-title">Phả ký</div>
                         <ul>
@@ -96,14 +87,12 @@
                 </div>
             </div>
             <div class="content">
+                <h2>NGOẠI PHẢ</h2>
                 <div class="header">
-                    <button id="openForm"><i class="fa-solid fa-user-plus"></i>Thêm mới</button>
-                    <a href="../Pages/xembaiviet.html" target="_blank">
-                        <button id="view">
-                          <i class="fa-solid fa-book-open-reader"></i> Xem bài viết
-                        </button>
-                      </a>
-                      
+                    <div class="open-delete">
+                        <button id="openForm"></i>Thêm mới</button>
+                        <button id="delete-card">Xoá</button>
+                    </div>
                     <div id="search" class="search-bar">
                         <input type="text" id="searchInput" placeholder="Tìm kiếm">
                         <button id="searchBtn"><i class="fas fa-search"></i></button>
@@ -118,55 +107,48 @@
                     </div>
                 </div>
                 <div class="body-content">
-                    <div class="table-post">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Tiêu đề</th>
-                                    <th>Chuyên mục</th>
-                                    <th>Ngày đăng</th>
-                                    <th>Trạng thái</th>
-                                    <th>Chỉnh sửa</th>
-                                </tr>
-                            </thead>
-                            <tbody id="postTableBody">
-                                <!--lấy dữ liệu từ form thêm bài viết qua đây  -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="post-edit-overlay" id="postOverlay">
-                        <div class="post-edit">
-                            <label for="post-title">Tiêu đề bài viết</label>
-                            <input type="text" id="post-title" placeholder="Nhập tiêu đề bài viết">
-                    
-                            <label for="category">Chuyên mục</label>
-                            <select id="category" required>
-                                <option value="" disabled selected>-- Chọn chuyên mục --</option>
+                    <div id="popupPost">
+                        <div class="popup-content">
+                          <h2>Thêm mới bài viết</h2>
+                          <form id="postForm">
+                      
+                            <label for="postTitle">Tiêu đề:</label>
+                            <input type="text" id="postTitle" required />
+
+                            <label for="postContent">Nội dung:</label>
+                            <textarea id="postContent" rows="5" required></textarea>
+                      
+                            <label for="postAuthor">Tác giả:</label>
+                            <input type="text" id="postAuthor" required />
+                      
+                            <label for="postDate">Ngày đăng:</label>
+                            <input type="date" id="postDate" required />
+                      
+                            <label for="postCategory">Chuyên mục:</label>
+                            <select id="postCategory" required>
+                              <option value="">-- Chọn chuyên mục --</option>
+                              <option value="Tin tức">Tin tức</option>
+                              <option value="Sự kiện">Sự kiện</option>
                             </select>
-                    
-                            <label for="newCategory">Thêm chuyên mục mới</label>
-                            <input type="text" id="newCategory" placeholder="Nhập tên chuyên mục mới" />
-                            <button type="button" id="addCategoryBtn">Thêm chuyên mục</button>
-                    
-                            <label for="post-content">Nội dung bài viết</label>
-                            <textarea id="post-content" placeholder="Nhập nội dung bài viết"></textarea>
-                    
-                            <div class="image-upload">
-                                <label for="image-upload">Thêm hình ảnh</label>
-                                <input type="file" id="image-upload">
+
+                            <label for="postImage">Thêm hình ảnh:</label>
+                            <input type="file" id="postImage" accept="image/*" />
+                            <img id="imagePreview" alt="Preview hình ảnh" style="display:none;" />
+                      
+                            <div class="popup-buttons">
+                              <button type="submit" class="btn-save">Lưu bài viết</button>
+                              <button type="button" class="btn-cancel" id="btnCancelPost">Hủy</button>
                             </div>
-                    
-                            <div class="buttons">
-                                <button type="button" id="cancel">Hủy</button>
-                                <button type="button" id="saveDraft">Bản nháp</button>
-                                <button type="button" id="create">Tạo</button>
-                            </div>
+                          </form>
                         </div>
                     </div>
-                    
+                    <div id="postsContainer">
+
+                    </div>
                 </div>
+          
             </div>
+        </div>
         </div>
     </div>
     <!-- <script type="module" src="../JavaScript/firebase-config.js"></script> -->
@@ -176,4 +158,4 @@
     <script src="../JavaScript/baivet.js"></script>
 </body>
 
-</html> 
+</html>

@@ -1,174 +1,87 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const openBtn = document.getElementById('openForm');
-  const postEditOverlay = document.getElementById('postOverlay');
-  const cancelBtn = document.getElementById('cancel');
-  const createBtn = document.getElementById('create');
-  const saveDraftBtn = document.getElementById('saveDraft');
-  const postTableBody = document.getElementById('postTableBody');
+const openFormBtn = document.getElementById('openForm');
+const popupPost = document.getElementById('popupPost');
+const btnCancelPost = document.getElementById('btnCancelPost');
+const postForm = document.getElementById('postForm');
 
-  const postTitle = document.getElementById('post-title');
-  const postContent = document.getElementById('post-content');
-  const category = document.getElementById('category');
-  const newCategory = document.getElementById('newCategory');
+openFormBtn.addEventListener('click', () => {
+  popupPost.style.display = 'flex';
+});
 
-  let editingRow = null;
+btnCancelPost.addEventListener('click', () => {
+  popupPost.style.display = 'none';
+  postForm.reset();
+  document.getElementById('imagePreview').style.display = 'none';
+});
 
-  openBtn?.addEventListener('click', () => {
-    postEditOverlay?.classList.add('active');
-    editingRow = null;
-    clearForm();
-  });
+postForm.addEventListener('submit', function(e) {
+  e.preventDefault(); // ngăn reload trang
 
-  cancelBtn?.addEventListener('click', () => {
-    postEditOverlay?.classList.remove('active');
-    clearForm();
-    editingRow = null;
-  });
+  const title = document.getElementById('postTitle').value.trim();
+  const author = document.getElementById('postAuthor').value.trim();
+  const date = document.getElementById('postDate').value;
+  const category = document.getElementById('postCategory').value;
+  const imageInput = document.getElementById('postImage');
+  const postsContainer = document.getElementById('postsContainer');
 
-  postEditOverlay?.addEventListener('click', (e) => {
-    if (e.target === postEditOverlay) {
-      postEditOverlay.classList.remove('active');
-      clearForm();
-      editingRow = null;
-    }
-  });
+  // Tạo thẻ bài viết mới
+  const postDiv = document.createElement('div');
+  postDiv.classList.add('post-item');
+  postDiv.style.border = '1px solid #ccc';
+  postDiv.style.padding = '10px';
+  postDiv.style.marginBottom = '10px';
 
-  // ✅ Tạo hoặc cập nhật bài viết (dùng chung cho "Tạo" và "Bản nháp")
-  function addOrUpdatePost(status) {
-    const title = postTitle.value.trim();
-    const content = postContent.value.trim();
-    const selectedCategory = category.value || newCategory.value.trim();
-    const date = new Date().toLocaleDateString('vi-VN');
+  // Hàm thêm thông tin văn bản (tiêu đề, tác giả, ngày, chuyên mục)
+  function addPostInfo() {
+    // Tiêu đề
+    const titleEl = document.createElement('h3');
+    titleEl.textContent = title;
+    postDiv.appendChild(titleEl);
 
-    if (!title || !selectedCategory || !content) {
-      alert("Vui lòng nhập đầy đủ thông tin bài viết.");
-      return;
-    }
+    // Tác giả
+    const authorEl = document.createElement('p');
+    authorEl.textContent = 'Tác giả: ' + author;
+    postDiv.appendChild(authorEl);
 
-    if (editingRow) {
-      editingRow.cells[1].textContent = title;
-      editingRow.cells[2].textContent = selectedCategory;
-      editingRow.cells[3].textContent = date;
-      editingRow.cells[4].textContent = status;
-      editingRow = null;
+    // Ngày đăng
+    const dateEl = document.createElement('p');
+    if (date) {
+      // Đổi định dạng yyyy-mm-dd thành dd/mm/yyyy
+      const formattedDate = date.split('-').reverse().join('/');
+      dateEl.textContent = 'Ngày đăng: ' + formattedDate;
     } else {
-      const row = document.createElement("tr");
-      const rowHTML = `
-        <td>${postTableBody.children.length + 1}</td>
-        <td>${title}</td>
-        <td>${selectedCategory}</td>
-        <td>${date}</td>
-        <td>${status}</td>
-        <td>
-          <button class="edit-btn">Sửa</button>
-          <button class="delete-btn">Xoá</button>
-        </td>
-      `;
-      row.innerHTML = rowHTML;
-      postTableBody.appendChild(row);
+      dateEl.textContent = 'Ngày đăng: N/A';
     }
+    postDiv.appendChild(dateEl);
 
-    postEditOverlay.classList.remove("active");
-    clearForm();
+    // Chuyên mục
+    const categoryEl = document.createElement('p');
+    categoryEl.textContent = 'Chuyên mục: ' + category;
+    postDiv.appendChild(categoryEl);
+
+    // Thêm thẻ bài viết vào container
+    postsContainer.appendChild(postDiv);
+
+    // Reset form sau khi thêm
+    postForm.reset();
+    popupPost.style.display = 'none';
   }
 
-  createBtn?.addEventListener('click', () => {
-    addOrUpdatePost("Đã đăng");
-  });
+  // Nếu có ảnh, đọc ảnh rồi thêm
+  if (imageInput.files && imageInput.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.style.maxWidth = '150px';
+      img.style.display = 'block';
+      img.style.marginBottom = '10px';
+      postDiv.appendChild(img);
 
-  saveDraftBtn?.addEventListener('click', () => {
-    addOrUpdatePost("Bản nháp");
-  });
-
-  // ✅ Sửa và xoá dòng
-  postTableBody.addEventListener("click", (e) => {
-    const target = e.target;
-    const row = target.closest("tr");
-
-    // Sửa
-    if (target.classList.contains("edit-btn")) {
-      editingRow = row;
-      postTitle.value = row.cells[1].textContent;
-      category.value = row.cells[2].textContent;
-      postContent.value = "";
-      newCategory.value = "";
-      postEditOverlay.classList.add("active");
+      addPostInfo();
     }
-
-    // Xoá
-    if (target.classList.contains("delete-btn")) {
-      if (confirm("Bạn có chắc chắn muốn xoá bài viết này không?")) {
-        row.remove();
-        updateSTT();
-      }
-    }
-  });
-
-  function clearForm() {
-    postTitle.value = '';
-    postContent.value = '';
-    category.selectedIndex = 0;
-    newCategory.value = '';
-    document.getElementById('image-upload').value = '';
+    reader.readAsDataURL(imageInput.files[0]);
+  } else {
+    // Không có ảnh thì chỉ thêm thông tin
+    addPostInfo();
   }
-
-  function updateSTT() {
-    const rows = postTableBody.getElementsByTagName("tr");
-    Array.from(rows).forEach((row, index) => {
-      row.cells[0].textContent = index + 1;
-    });
-  }
-
-  document.getElementById("addCategoryBtn").addEventListener("click", () => {
-    const newCat = newCategory.value.trim();
-    if (newCat) {
-      const option = document.createElement("option");
-      option.value = newCat;
-      option.textContent = newCat;
-      category.appendChild(option);
-      category.value = newCat;
-      newCategory.value = '';
-    }
-  });
-
-  document.getElementById("applyFilter").addEventListener("click", () => {
-    const searchKeyword = document.getElementById("searchInput").value.toLowerCase();
-    const filterType = document.getElementById("filterDate").value;
-    const rows = Array.from(postTableBody.getElementsByTagName("tr"));
-
-    let filteredRows = rows.filter(row => {
-      const title = row.cells[1].textContent.toLowerCase();
-      return title.includes(searchKeyword);
-    });
-
-    filteredRows.sort((a, b) => {
-      const dateA = new Date(a.cells[3].textContent.split("/").reverse().join("-"));
-      const dateB = new Date(b.cells[3].textContent.split("/").reverse().join("-"));
-      if (filterType === "newest") return dateB - dateA;
-      if (filterType === "oldest") return dateA - dateB;
-      return 0;
-    });
-
-    postTableBody.innerHTML = "";
-    filteredRows.forEach((row, index) => {
-      row.cells[0].textContent = index + 1;
-      postTableBody.appendChild(row);
-    });
-  });
-
-  document.getElementById("searchBtn").addEventListener("click", () => {
-    const searchKeyword = document.getElementById("searchInput").value.toLowerCase();
-    const rows = Array.from(postTableBody.getElementsByTagName("tr"));
-
-    const filteredRows = rows.filter(row => {
-      const title = row.cells[1].textContent.toLowerCase();
-      return title.includes(searchKeyword);
-    });
-
-    postTableBody.innerHTML = "";
-    filteredRows.forEach((row, index) => {
-      row.cells[0].textContent = index + 1;
-      postTableBody.appendChild(row);
-    });
-  });
 });
