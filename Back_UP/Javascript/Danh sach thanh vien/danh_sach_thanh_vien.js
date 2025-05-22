@@ -16,14 +16,14 @@ import {
 import { db } from "../fconfig.js";
 
 let members = [];
-let currentEditId = null;
-let currentDeleteId = null;
+let currentEditId = null; //ID đang thao tác |
+let currentDeleteId = null;//                |
 let currentUserRole = null;
 
 const auth = getAuth();
 
-const memberIdToName = new Map();
-
+const memberIdToName = new Map(); // dùng để tra tên từ ID
+// kiểm tra role hiện tại 
 async function getCurrentUserRole(uid) {
   if (!uid) return null;
   const userDoc = await getDoc(doc(db, "users", uid));
@@ -53,7 +53,7 @@ function handleRoleUI() {
   }
 }
 
-
+//load dữ liệu 
 async function loadMembersFromFirestore() {
   const snapshot = await getDocs(collection(db, "members"));
 
@@ -75,10 +75,11 @@ async function loadMembersFromFirestore() {
     };
   });
 
-  renderTable(members);
+  renderTable(members);// hiển thị ra bảng 
   handleRoleUI();
 }
 
+// tạo từng <tr> --> điền tên từ ID
 function renderTable(data) {
   const tbody = document.getElementById("memberBody");
   tbody.innerHTML = "";
@@ -108,6 +109,7 @@ function renderTable(data) {
   });
 }
 
+//popup thêm tv
 window.showPopup = async function(id) {
   document.getElementById(id).classList.add("show");
   if (id === "popupAdd") {
@@ -166,7 +168,7 @@ window.showEditPopup = async function(id) {
   showPopup("popupEdit");
 };
 
-
+//update
 window.handleUpdate = async function() {
   const name = document.getElementById("editName").value.trim();
   const gender = document.getElementById("editGender").value;
@@ -193,7 +195,7 @@ window.handleUpdate = async function() {
     await loadMembersFromFirestore();
   }
 };
-
+//show popup del
 window.showDeletePopup = function(id) {
   const member = members.find(m => m.id === id);
   if (!member) return;
@@ -209,7 +211,7 @@ window.confirmDelete = async function() {
     await loadMembersFromFirestore();
   }
 };
-
+//thêm tv 
 window.handleAdd = async function() {
   const name = document.getElementById("addName").value.trim();
   const gender = document.getElementById("addGender").value;
@@ -236,7 +238,7 @@ window.handleAdd = async function() {
     await addToFirestore(name, gender, birth, father, mother, spouse, avatar);
   }
 };
-
+//lưu tv mới
 async function addToFirestore(name, gender, birth, father, mother, spouse, avatar) {
   const [lastName, ...firstName] = name.split(" ").reverse();
   const newRef = await addDoc(collection(db, "members"), {
@@ -304,6 +306,7 @@ window.previewAvatar = function(event) {
   }
 };
 
+//search tên/ giới tính
 window.handleSearch = function() {
   const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
   const selectedGender = document.getElementById("genderFilter").value;
@@ -321,6 +324,7 @@ window.showAllMembers = function() {
   renderTable(members);
   handleRoleUI(); // Gọi ẩn/hiện lại cột chỉnh sửa khi hiển thị tất cả
 };
+
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {

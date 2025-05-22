@@ -24,7 +24,7 @@ body{
     padding: 30px;
     background: #ffffffb5;
     border-radius: 20px;
-    display:none;
+    display:none; /*Ẩn form*/
 }
 
 .form-box.active{

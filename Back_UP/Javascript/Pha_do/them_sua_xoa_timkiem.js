@@ -16,6 +16,7 @@ import { app, db } from "../fconfig.js";
 import { fetchFamilyData } from "../Pha_do/render.js";
 import Swal from 'https://cdn.jsdelivr.net/npm/sweetalert2@11/+esm';
 
+//kiểm tra role
 const auth = getAuth(app);
 onAuthStateChanged(auth, async (user) => {
   if (user) {
@@ -24,22 +25,24 @@ onAuthStateChanged(auth, async (user) => {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       const role = docSnap.data().role;
+      //nếu là user hoặc editor thì nút thêm, xóa, sửa bị ẩn 
       if (role === "user" || role === "editor") {
         ["addMemberBtn", "editMemberBtn", "deleteMemberBtn"].forEach(id => {
           const el = document.getElementById(id);
           if (el) el.style.display = "none";
         });
       }
-
     }
   }
 });
 
+// hàm chuyển mảng members thành thẻ option dùng trong select (dropdown)
 function buildOptions(members) {
   return members.map(m => `<option value="${m.id}">${m.name}</option>`).join("");
 }
 
-async function updateRelation(targetId, field, newId) {
+// hàm cập nhật liên kết 
+async function updateRelation(targetId, field, newId) {//targetId: ID của người cần cập nhật, field: mối quan hệ (cha, me,...), newId: ID của người mới thêmthêm
   const ref = doc(db, "members", targetId);
   const snap = await getDoc(ref);
   if (snap.exists()) {
@@ -51,7 +54,8 @@ async function updateRelation(targetId, field, newId) {
   }
 }
 
-function buildGenderRow(defaultVal = "M") {
+//Tạo một dòng HTML hiển thị giới tính cho form
+function buildGenderRow(defaultVal = "M") {// mặc định là nam
   return `
     <div style="margin: 10px 0;">
       <label><input type="radio" name="gender" value="M" ${defaultVal === 'M' ? 'checked' : ''}> Nam</label>
@@ -59,6 +63,7 @@ function buildGenderRow(defaultVal = "M") {
     </div>`;
 }
 
+//dropdown để chọn 
 function buildSelectRow(label, id, options, selected = "") {
   return `<select id="${id}" class="swal2-input">
     <option value="">-- ${label} --</option>
@@ -67,13 +72,14 @@ function buildSelectRow(label, id, options, selected = "") {
 }
 
 // ===== Thêm =====
-document.getElementById("addMemberBtn").addEventListener("click", async () => {
+document.getElementById("addMemberBtn").addEventListener("click", async () => {//mở popup
+  //lấy danh sách tất cả thành viên
   const membersSnap = await getDocs(collection(db, "members"));
   const members = membersSnap.docs.map(docSnap => {
     const data = docSnap.data();
     return { id: docSnap.id, name: `${data["first name"]} ${data["last name"]}` };
   });
-
+  //popup swal.fire
   const result = await Swal.fire({
     title: "Thêm thành viên",
     html: `
@@ -88,6 +94,7 @@ document.getElementById("addMemberBtn").addEventListener("click", async () => {
     `,
     showCancelButton: true,
     confirmButtonText: 'Thêm',
+
     preConfirm: async () => {
       const file = document.getElementById("avatarInput").files[0];
       let avatar = "avatar-default.png";
@@ -99,7 +106,7 @@ document.getElementById("addMemberBtn").addEventListener("click", async () => {
           reader.readAsDataURL(file);
         });
       }
-
+      // thu thập dữ liệu trả về result
       return {
         firstName: document.getElementById("firstName").value.trim(),
         lastName: document.getElementById("lastName").value.trim(),
@@ -113,9 +120,10 @@ document.getElementById("addMemberBtn").addEventListener("click", async () => {
     }
   });
 
+  //nếu bấm hủy thì ko lm j hết
   if (!result.value) return;
   const data = result.value;
-
+  //thêm dữ liệu
   const newRef = await addDoc(collection(db, "members"), {
     "first name": data.firstName,
     "last name": data.lastName,
@@ -129,14 +137,14 @@ document.getElementById("addMemberBtn").addEventListener("click", async () => {
       children: []
     }
   });
-
+  //cập nhật ngược
   const newId = newRef.id;
   if (data.father) await updateRelation(data.father, "children", newId);
   if (data.mother) await updateRelation(data.mother, "children", newId);
   if (data.spouse) await updateRelation(data.spouse, "spouses", newId);
 
   await Swal.fire("✅ Đã thêm", "Thành viên mới đã được lưu", "success");
-  fetchFamilyData();
+  fetchFamilyData(); // vẽ lại
 });
 
 // ===== Sửa =====
@@ -145,14 +153,14 @@ document.getElementById("editMemberBtn").onclick = async () => {
   const members = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
   const options = members.map(m => `<option value="${m.id}">${m["first name"]} ${m["last name"]}</option>`).join("");
-
+//popup chọn người để sửasửa
   const { value: selectedId } = await Swal.fire({
     title: "Chọn thành viên để sửa",
     html: `<select id="selectMember" class="swal2-input"><option value="">-- Chọn --</option>${options}</select>`,
     showCancelButton: true,
     preConfirm: () => document.getElementById("selectMember").value
   });
-
+//ko chọn aiai
   if (!selectedId) return;
   const m = members.find(m => m.id === selectedId);
 
@@ -178,7 +186,7 @@ document.getElementById("editMemberBtn").onclick = async () => {
           reader.readAsDataURL(file);
         });
       }
-
+//thu dữ liệu 
       return {
         firstName: document.getElementById("firstName").value.trim(),
         lastName: document.getElementById("lastName").value.trim(),
@@ -188,7 +196,7 @@ document.getElementById("editMemberBtn").onclick = async () => {
       };
     }
   });
-
+// hủy sửa
   if (!result.value) return;
 
   await updateDoc(doc(db, "members", selectedId), {
@@ -200,7 +208,7 @@ document.getElementById("editMemberBtn").onclick = async () => {
   });
 
   await Swal.fire("✔️ Đã lưu", "Thông tin đã cập nhật", "success");
-  fetchFamilyData();
+  fetchFamilyData();//vẽ lạilại
 };
 
 // ===== Xoá thành viên =====

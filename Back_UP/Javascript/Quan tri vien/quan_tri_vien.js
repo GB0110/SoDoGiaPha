@@ -1,4 +1,3 @@
-// ✅ Import Firebase Firestore & Authentication
 import {
   getDocs,
   addDoc,
