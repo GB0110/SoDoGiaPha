@@ -74,7 +74,7 @@ postForm?.addEventListener('submit', async (e) => {
   } else {
     await savePost(editingPostId);
   }
-
+//lưu bài viết 
   async function savePost(id) {
     const postData = { title, content, author, date, category, imageUrl };
     try {
@@ -165,7 +165,7 @@ async function renderPosts() {
       <p>Ngày đăng: ${data.date?.split('-').reverse().join('/')}</p>
       <p>Chuyên mục: ${data.category}</p>
     `;
-
+//role ko là user -> có nút sửa 
     if (currentUserRole !== "user") {
       const editBtn = document.createElement("button");
       editBtn.textContent = "Sửa";
@@ -187,7 +187,7 @@ async function renderPosts() {
       };
       postDiv.appendChild(editBtn);
     }
-
+//click xem bài viết 
     postDiv.style.cursor = "pointer";
     postDiv.addEventListener("click", () => {
       window.location.href = `xem_bai_viet.html?id=${postId}`;
