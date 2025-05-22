@@ -242,32 +242,32 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
 }
 
-/* BẢNG DANH SÁCH */
+/* BẢNG DANH SÁCH */ 
 .member-table {
   width: 92%;
-  border-collapse: collapse;
+  border-collapse: collapse;/* bỏ khoảng cách giữa các đường biên*/
   background-color: rgba(255, 255, 255, 0.85); 
   border-radius: 8px;
-  overflow: hidden;
+  overflow: hidden; /* ẩn phần tử bị tràn*/
   margin-top: 80px ;
   transform: translateX(48px);
   
 }
-
+/* tiêu đề trong bảng */
 .member-table thead {
   background-color: #f0e6cc;
   font-weight: bold;
   text-align: left;
 }
-
+/* tiêu đề với nội dung */
 .member-table th, .member-table td {
   padding: 12px 16px;
-  border-bottom: 1px solid #ccc;
-  vertical-align: middle;
+  border-bottom: 1px solid #ccc; /*viền dưới ô*/
+  vertical-align: middle; /*căn giữa theo chiều dọc*/
 }
-
+/* icon trong bảng */
 .member-table i {
-  margin: 0 6px;
+  margin: 0 6px; /* trái phải*/
   cursor: pointer;
 }
 
@@ -276,7 +276,7 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
   padding: 4px 12px;
   border-radius: 20px;
   font-weight: bold;
-  font-size: 0.9em;
+  font-size: 0.9em;/*giảm kích thước so với góc */
 }
 
 .status.online {
@@ -333,18 +333,18 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
   margin-top: 10px;
 }
 
-/* Overlay nền mờ */
+/* Overlay nền mờ */ 
 .popup-overlay {
-  position: fixed;
+  position: fixed; /*overlay cố định */
   top: 0; left: 0;
   width: 100%; height: 100vh;
   background-color: rgba(0,0,0,0.4);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2000;
-  visibility: hidden;
-  opacity: 0;
+  z-index: 2000; 
+  visibility: hidden;/* ẩn popup */
+  opacity: 0;/* độ trong suốt là ko */
   transition: all 0.3s ease;
 }
 
@@ -360,8 +360,9 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
   width: 700px;
   border-radius: 12px;
   padding: 20px 30px;
-  animation: popupZoomIn 0.3s ease;
+  animation: popupZoomIn 0.3s ease;/* hiệu ứng zoom khi xuất hiện */
 }
+/* tiêu đề popup content */
 .popup-content h3 {
   background: rgb(129, 126, 126);
   color: white;
@@ -374,14 +375,14 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
   gap: 30px;
   margin-top: 20px;
 }
-
+/* nội dụng */
 .popup-left {
   text-align: center;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-
+/* ảnh */
 .popup-left img {
   width: 120px;
   height: 120px;
@@ -400,6 +401,7 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 /* Form */
+/* nội dung */
 .popup-right {
   flex: 1;
   display: flex;
@@ -426,7 +428,7 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
   gap: 10px;
   margin-top: 10px;
 }
-
+/* nút hủy */
 .btn-cancel {
   background-color: #4a5568;
   color: white;
@@ -435,7 +437,7 @@ transition: background-color 0.2s ease, border-color 0.2s ease;
   border-radius: 6px;
   cursor: pointer;
 }
-
+/* nút thêm */
 .btn-submit {
   background-color: #2e7d68;
   color: white;
