@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/bai_viet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>Bài viết</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- side bar  -->
+        <div class="sidebar">
+            <div class="logo">
+                <img src="../Picture/logo.png" alt="Logo" />
+            </div>
+            <div class="divider">
+                <span class="diamond left"></span>
+                <span class="line"></span>
+                <span class="diamond right"></span>
+            </div>
+
+            <div class="menu">
+                <ul>
+                    <li>
+                        <div class="menu-title">Phả hệ</div>
+                        <ul>
+                            <li class="menu-btn" onclick="location.href='../Page/pha_do.html'"><i
+                                    class="fas fa-sitemap"></i> <span>Phả đồ</span></li>
+                            <li class="menu-btn" onclick="location.href='../Page/danh_sach_thanh_vien.html'"><i
+                                    class="fas fa-users"></i> <span>Danh sách thành viên</span></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <div class="menu-title">Tin tức</div>
+                        <ul>
+                            <li class="menu-btn" onclick="location.href='../Page/bai_viet.html'"><i
+                                    class="fas fa-newspaper"></i> <span>Bài viết</span>
+                            </li>
+                            <li class="menu-btn" onclick="location.href='../Page/su_kien.html'"><i
+                                    class="fas fa-calendar-alt"></i><span>Sự kiện</span></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="menu-title">Phả ký</div>
+                        <ul>
+                            <li class="menu-btn">
+                                <a href="../Page/nhathoto.html">
+                                    <i class="fas fa-home"></i> <span>Nhà thờ tổ</span>
+                                </a>
+                            </li>
+                            <li class="menu-btn">
+                                <a href="../Page/lichsu.html">
+                                    <i class="fas fa-history"></i> <span>Lịch sử</span>
+                                </a>
+                            </li>
+                            <li class="menu-btn">
+                                <a href="../Page/totien.html">
+                                    <i class="fas fa-user-clock"></i> <span>Tổ tiên</span>
+                                </a>
+                            </li>
+                            <li class="menu-btn">
+                                <a href="../Page/truyenthong.html">
+                                    <i class="fas fa-scroll"></i> <span>Truyền thống</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <div class="menu-title">Thông tin</div>
+                        <ul>
+                            <li class="menu-btn" onclick="location.href='../Page/quan_tri_vien.html'"><i
+                                    class="fas fa-user-shield"></i> <span>Quản trị viên</span></li>
+                            <li class="menu-btn" onclick="location.href='../Page/tai_khoan.html'"><i
+                                    class="fas fa-user-circle"></i> <span>Tài khoản</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- main -->
+        <div class="main-content">
+            <div class="header-menu">
+                <button id="btn-open"><i class="fa-solid fa-bars"></i></button>
+                <div class="menu-avatar">
+                    <button id="btn-avatar"><i class="fas fa-user-circle"></i></button>
+                    <div>Tên người dùng</div>
+                </div>
+            </div>
+            <div class="content">
+                <h2>NGOẠI PHẢ</h2>
+                <div class="header">
+                    <div class="open-delete">
+                        <button id="openForm"></i>Thêm mới</button>
+                        <button id="delete-card">Xoá</button>
+                    </div>
+                    <div id="search" class="search-bar">
+                        <input type="text" id="searchInput" placeholder="Tìm kiếm">
+                        <button id="searchBtn"><i class="fas fa-search"></i></button>
+                        <div class="filter-bar">
+                            <select id="filterCategory">
+                                <option value="all">Tất cả</option>
+                                <option value="Tin tức">Tin tức</option>
+                                <option value="Sự kiện">Sự kiện</option>
+                            </select>
+                            <button id="applyFilter"><i class="fas fa-filter"></i> Lọc</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="body-content">
+                    <div id="popupPost">
+                        <input type="hidden" id="editingPostId">
+
+                        <div class="popup-content">
+                            <h2>Thêm mới bài viết</h2>
+                            <form id="postForm">
+
+                                <label for="postTitle">Tiêu đề:</label>
+                                <input type="text" id="postTitle" required />
+
+                                <label for="postContent">Nội dung:</label>
+                                <textarea id="postContent" rows="5" required></textarea>
+
+                                <label for="postAuthor">Tác giả:</label>
+                                <input type="text" id="postAuthor" required />
+
+                                <label for="postDate">Ngày đăng:</label>
+                                <input type="date" id="postDate" required />
+
+                                <label for="postCategory">Chuyên mục:</label>
+                                <select id="postCategory" required>
+                                    <option value="">-- Chọn chuyên mục --</option>
+                                    <option value="Tin tức">Tin tức</option>
+                                    <option value="Sự kiện">Sự kiện</option>
+                                </select>
+
+                                <label for="postImage">Thêm hình ảnh:</label>
+                                <input type="file" id="postImage" accept="image/*" />
+                                <img id="imagePreview" alt="Preview hình ảnh" style="display:none;" />
+
+                                <div class="popup-buttons">
+                                    <button type="submit" class="btn-save">Lưu bài viết</button>
+                                    <button type="button" class="btn-cancel" id="btnCancelPost">Hủy</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="postsContainer">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- <script type="module" src="../JavaScript/firebase-config.js"></script> -->
+    <!-- <script type="module" src="../JavaScript/baivet.js"></script> -->
+    <!-- <script type="module" src="../JavaScript/an_them_tv_user.js"></script> -->
+    <script src="../Javascript/sidebar_trong.js"></script>
+    <script type="module" src="../Javascript/Bai viet/bai_viet.js"></script>
+</body>
+
+</html>

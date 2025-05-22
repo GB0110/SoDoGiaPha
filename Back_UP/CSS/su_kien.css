@@ -156,14 +156,7 @@ border:none;
 background: none;
 font-size: 18px;
 }
-/* xoay nut */
-/* #btn-open i {
-transition: transform 0.3s ease;
-}
-#btn-open.rotated i {
-transform: rotate(90deg);
-} */
-
+/* ------------------------------------------------------------------------------- */
 .content{
 display: flex;
 flex-direction: column;
@@ -174,54 +167,45 @@ height: 100%;
 background-repeat: no-repeat;
 background-size: cover;
 }
-
-.summary-cards {
-   display: flex;
-   justify-content: space-between;
-   max-width: fit-content;
-   gap: 20px;
-   margin: 20px 0;
- }
- 
- .card {
-   background: white;
-   padding: 20px;
-   border-radius: 10px;
-   width: 350px;
-   text-align: center;
- }
- 
- .card .count {
-   font-size: 50px;
-   font-weight: bold;
- }
- 
- .card .label {
-   margin: 10px 0;
- }
- 
- .card button {
-   margin-top: 10px;
-   background: #8b3d14;
-   color: white;
-   border: none;
-   padding: 5px 100px;
-   cursor: pointer;
-   border-radius: 4px;
- }
- 
+/* nút tạo sự kiện */
+#btnAddEvent{
+  background-color: #603813;
+  color:#fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 15px;
+}
+#eventFormContainer{
+  display:none; 
+  margin-top:20px; 
+  border:1px solid #ccc; 
+  padding:15px; 
+  border-radius:8px; 
+  background:#fff; 
+  max-width:400px;
+}
+/* Nút lưu */
+#submit{
+  background-color: darkgreen;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 8px;
+}
+#btnCancelEvent{
+  background-color:darkred;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 8px;
+}
+/* Nút huỷ */
+/* list sự kiện */
  .event-list {
    background: white;
    border-radius: 10px;
    padding: 15px;
    max-width: 100%;
- }
- 
- .event-list h2 {
-   background: #603813;
-   color: white;
-   padding: 10px;
-   margin-bottom: 10px;
  }
  
  .event-list ul {

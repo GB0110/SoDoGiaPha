@@ -41,12 +41,18 @@ function handleRoleUI() {
     if (addBtn) addBtn.style.display = "none";
     if (editColumn) editColumn.style.display = "none";
     tbody.querySelectorAll("td.edit-cell").forEach(td => td.style.display = "none");
+  } else if (currentUserRole === "editor") {
+    if (addBtn) addBtn.style.display = "none";
+    if (editColumn) editColumn.style.display = "";
+    tbody.querySelectorAll("td.edit-cell").forEach(td => td.style.display = "");
   } else {
+    // admin
     if (addBtn) addBtn.style.display = "";
     if (editColumn) editColumn.style.display = "";
     tbody.querySelectorAll("td.edit-cell").forEach(td => td.style.display = "");
   }
 }
+
 
 async function loadMembersFromFirestore() {
   const snapshot = await getDocs(collection(db, "members"));

@@ -1,4 +1,3 @@
-// totien.js
 import { app, db } from "../fconfig.js";
 import {
   collection, addDoc, getDocs, deleteDoc, doc, updateDoc, getDoc
@@ -28,44 +27,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let avatarURL = "https://via.placeholder.com/100";
   let editingDocId = null;
+  let currentUserRole = "user"; // mặc định
 
   onAuthStateChanged(auth, async (user) => {
-      console.log("Đang kiểm tra vai trò...");//debug
     if (user) {
-      console.log("✅ Đã đăng nhập với UID:", user.uid); //debug
       const uid = user.uid;
       const docRef = doc(db, "users", uid);
       const docSnap = await getDoc(docRef);
-  
+
       if (docSnap.exists()) {
-        const role = docSnap.data().role;
-        console.log("Vai trò của người dùng là:", role);//debug
-        
+        const role = docSnap.data().role || "user";
+        currentUserRole = role;
         localStorage.setItem("role", role);
 
-        // Nếu là user → ẩn form và tiêu đề
         if (role === "user") {
-          const hide_totien_user = document.getElementById("openForm");
-          if (hide_totien_user) hide_totien_user.style.display = "none";
+          const hideAddBtn = document.getElementById("openForm");
+          if (hideAddBtn) hideAddBtn.style.display = "none";
         }
+
+        renderAncestors(); // chỉ gọi sau khi có role
       }
     }
   });
-  console.log("✅ Nút thêm mới đã bấm"); //DEBUG
+
   // Mở form
-  openFormBtn.onclick = () => {
+  openFormBtn?.addEventListener("click", () => {
     resetForm();
     popupForm.style.display = "flex";
-  };
+  });
 
   // Đóng form
-  cancelBtn.onclick = () => {
+  cancelBtn?.addEventListener("click", () => {
     popupForm.style.display = "none";
     editingDocId = null;
-  };
+  });
 
-  // Ảnh preview
-  imgInput.onchange = (e) => {
+  // Preview ảnh
+  imgInput?.addEventListener("change", (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -75,10 +73,10 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       reader.readAsDataURL(file);
     }
-  };
+  });
 
-  // Tạo hoặc cập nhật
-  createBtn.onclick = async () => {
+  // Thêm hoặc cập nhật tổ tiên
+  createBtn?.addEventListener("click", async () => {
     const name = nameInput.value.trim();
     const gender = genderInput.value;
     const birth = birthInput.value;
@@ -103,73 +101,72 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         alert("✅ Đã thêm mới!");
       }
+
       popupForm.style.display = "none";
       renderAncestors();
     } catch (err) {
       console.error("❌ Lỗi khi lưu:", err);
       alert("Lỗi xảy ra!");
     }
-  };
-
-  // Hiển thị danh sách
-  async function renderAncestors(keyword = "", genderFilter = "") {
-  const querySnapshot = await getDocs(collection(db, "ancestors"));
-  ancestorList.innerHTML = "";
-  const currentRole = localStorage.getItem("role") || "user";
-
-  querySnapshot.forEach((docSnap) => {
-
-    const data = docSnap.data();
-    const id = docSnap.id;
-
-    const nameMatch = data.name.toLowerCase().includes(keyword.toLowerCase());
-    const genderMatch = !genderFilter || data.gender === genderFilter;
-
-    if (!nameMatch || !genderMatch) return; // nếu không khớp thì bỏ qua
-
-    const card = document.createElement("div");
-    card.className = "ancestor-card";
-    card.setAttribute("data-gender", data.gender);
-    card.innerHTML = `
-      <img src="${data.avatar || 'https://via.placeholder.com/100'}" />
-      <h4>${data.name}</h4>
-      <p>${data.birth}</p>
-      <p>${data.desc}</p>
-      <div class="actions">
-        <button class="edit-btn"><i class="fa-regular fa-pen-to-square"></i></button>
-        <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    `;
-
-    if (currentRole === "user") {
-      card.querySelector(".edit-btn").style.display = "none";
-      card.querySelector(".delete-btn").style.display = "none";
-    } 
-
-    card.querySelector(".edit-btn").onclick = () => {
-      nameInput.value = data.name;
-      genderInput.value = data.gender;
-      birthInput.value = data.birth;
-      descInput.value = data.desc;
-      preview.src = data.avatar;
-      avatarURL = data.avatar;
-      editingDocId = id;
-      popupForm.style.display = "flex";
-    };
-
-    card.querySelector(".delete-btn").onclick = async () => {
-      const confirm = window.confirm(`Xóa tổ tiên: ${data.name}?`);
-      if (confirm) {
-        await deleteDoc(doc(db, "ancestors", id));
-        renderAncestors(keyword, genderFilter); // giữ lại filter khi xóa
-        alert("🗑️ Đã xóa!");
-      }
-    };
-
-    ancestorList.appendChild(card);
   });
-}
 
+  // Hiển thị danh sách tổ tiên
+  async function renderAncestors(keyword = "", genderFilter = "") {
+    const querySnapshot = await getDocs(collection(db, "ancestors"));
+    ancestorList.innerHTML = "";
+
+    querySnapshot.forEach((docSnap) => {
+      const data = docSnap.data();
+      const id = docSnap.id;
+
+      const nameMatch = data.name.toLowerCase().includes(keyword.toLowerCase());
+      const genderMatch = !genderFilter || data.gender === genderFilter;
+
+      if (!nameMatch || !genderMatch) return;
+
+      const card = document.createElement("div");
+      card.className = "ancestor-card";
+      card.setAttribute("data-gender", data.gender);
+      card.innerHTML = `
+        <img src="${data.avatar || 'https://via.placeholder.com/100'}" />
+        <h4>${data.name}</h4>
+        <p>${data.birth}</p>
+        <p>${data.desc}</p>
+        <div class="actions">
+          <button class="edit-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+          <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      `;
+
+      // 🛑 Nếu là user thì ẩn 2 nút
+      if (currentUserRole === "user") {
+        card.querySelector(".edit-btn").style.display = "none";
+        card.querySelector(".delete-btn").style.display = "none";
+      }
+
+      card.querySelector(".edit-btn").onclick = () => {
+        nameInput.value = data.name;
+        genderInput.value = data.gender;
+        birthInput.value = data.birth;
+        descInput.value = data.desc;
+        preview.src = data.avatar;
+        avatarURL = data.avatar;
+        editingDocId = id;
+        popupForm.style.display = "flex";
+      };
+
+      card.querySelector(".delete-btn").onclick = async () => {
+        const confirmDelete = window.confirm(`Xóa tổ tiên: ${data.name}?`);
+        if (confirmDelete) {
+          await deleteDoc(doc(db, "ancestors", id));
+          renderAncestors(keyword, genderFilter);
+          alert("🗑️ Đã xóa!");
+        }
+      };
+
+      ancestorList.appendChild(card);
+    });
+  }
 
   function resetForm() {
     nameInput.value = "";
@@ -182,17 +179,15 @@ document.addEventListener("DOMContentLoaded", () => {
     imgInput.value = "";
   }
 
-  searchBtn.onclick = () => {
-  const keyword = searchInput.value.trim();
-  const gender = filterGender.value;
-  renderAncestors(keyword, gender);
-};
+  searchBtn?.addEventListener("click", () => {
+    const keyword = searchInput.value.trim();
+    const gender = filterGender.value;
+    renderAncestors(keyword, gender);
+  });
 
-applyFilter.onclick = () => {
-  const keyword = searchInput.value.trim();
-  const gender = filterGender.value;
-  renderAncestors(keyword, gender);
-};
-
-  renderAncestors();
+  applyFilter?.addEventListener("click", () => {
+    const keyword = searchInput.value.trim();
+    const gender = filterGender.value;
+    renderAncestors(keyword, gender);
+  });
 });

@@ -6,12 +6,16 @@ import {
   deleteDoc,
   doc,
   collection,
-  setDoc
+  setDoc,
+  getDoc
 } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+
 import {
   getAuth,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
+
 import { db, app } from "../fconfig.js";
 
 // ============================ SIDEBAR TOGGLE ============================
@@ -34,17 +38,18 @@ document.querySelectorAll(".menu-btn").forEach(btn => {
 });
 
 // ============================ POPUP FUNCTIONS ============================
-window.showPopup = function(id) {
+window.showPopup = function (id) {
   document.getElementById(id).classList.add("show");
 };
 
-window.closePopup = function(id) {
+window.closePopup = function (id) {
   document.getElementById(id).classList.remove("show");
 };
 
 let members = [];
 let currentEditId = null;
 let currentDeleteId = null;
+let currentUserRole = null;
 
 async function loadUsersFromFirestore() {
   const snapshot = await getDocs(collection(db, "users"));
@@ -59,12 +64,44 @@ async function loadUsersFromFirestore() {
     };
   });
   renderTable(members);
+  applyRoleRestrictions(currentUserRole); // 🛠 gọi lại sau khi render
 }
+
+// Ẩn các nút theo role
+function applyRoleRestrictions(role) {
+  if (role === "editor" || role === "user") {
+    const btnAdd = document.querySelector(".btn-add-member");
+    const editHeader = document.querySelector("th:last-child");
+
+    if (btnAdd) btnAdd.style.display = "none";
+    if (editHeader) editHeader.style.display = "none";
+
+    const rows = document.querySelectorAll("#memberBody tr");
+    rows.forEach(row => {
+      const lastCell = row.querySelector("td:last-child");
+      if (lastCell) lastCell.style.display = "none";
+    });
+  }
+}
+
+// Khi đăng nhập xong, lấy role rồi áp dụng
+onAuthStateChanged(getAuth(app), async (user) => {
+  if (user) {
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      currentUserRole = docSnap.data().role;
+      applyRoleRestrictions(currentUserRole);
+      await loadUsersFromFirestore();
+    }
+  }
+});
 
 function renderTable(data) {
   const tbody = document.getElementById("memberBody");
   if (!tbody) return;
   tbody.innerHTML = "";
+
   data.forEach((member, index) => {
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -82,18 +119,22 @@ function renderTable(data) {
   });
 }
 
-window.handleSearch = function() {
+// ===================== Các sự kiện tìm kiếm =====================
+window.handleSearch = function () {
   const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
   const filtered = members.filter(m => m.name.toLowerCase().includes(keyword));
   renderTable(filtered);
+  applyRoleRestrictions(currentUserRole); // 🛠 áp dụng lại
 };
 
-window.showAllMembers = function() {
+window.showAllMembers = function () {
   document.getElementById("searchInput").value = "";
   renderTable(members);
+  applyRoleRestrictions(currentUserRole); // 🛠 áp dụng lại
 };
 
-window.handleAdd = async function() {
+// ===================== CRUD =====================
+window.handleAdd = async function () {
   const name = document.getElementById("addName").value.trim();
   const email = document.getElementById("addEmail").value.trim();
   const role = document.getElementById("addRole").value.trim();
@@ -110,12 +151,11 @@ window.handleAdd = async function() {
     const user = userCredential.user;
 
     await setDoc(doc(db, "users", user.uid), {
-  username: name,
-  email,
-  role,
-  uid: user.uid
-});
-
+      username: name,
+      email,
+      role,
+      uid: user.uid
+    });
 
     alert("✅ Tạo tài khoản thành công!");
     closePopup("popupAdd");
@@ -126,7 +166,7 @@ window.handleAdd = async function() {
   }
 };
 
-window.showEditPopup = function(id) {
+window.showEditPopup = function (id) {
   const member = members.find(m => m.id === id);
   if (!member) return;
 
@@ -137,7 +177,7 @@ window.showEditPopup = function(id) {
   showPopup("popupEdit");
 };
 
-window.handleUpdate = async function() {
+window.handleUpdate = async function () {
   const name = document.getElementById("editName").value.trim();
   const email = document.getElementById("editEmail").value.trim();
   const role = document.getElementById("editRole").value.trim();
@@ -157,7 +197,7 @@ window.handleUpdate = async function() {
   await loadUsersFromFirestore();
 };
 
-window.showDeletePopup = function(id) {
+window.showDeletePopup = function (id) {
   const member = members.find(m => m.id === id);
   if (!member) return;
   document.getElementById("deleteName").textContent = member.name;
@@ -165,12 +205,9 @@ window.showDeletePopup = function(id) {
   showPopup("popupDelete");
 };
 
-window.confirmDelete = async function() {
+window.confirmDelete = async function () {
   if (!currentDeleteId) return;
   await deleteDoc(doc(db, "users", currentDeleteId));
   closePopup("popupDelete");
   await loadUsersFromFirestore();
 };
-
-// Tải dữ liệu khi khởi động
-loadUsersFromFirestore();
